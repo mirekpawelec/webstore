@@ -27,14 +27,12 @@ import pl.pawelec.webshop.model.dao.CartDao;
 import pl.pawelec.webshop.model.dao.CartItemDao;
 import pl.pawelec.webshop.model.dao.CustomerDao;
 import pl.pawelec.webshop.model.dao.OrderDao;
-import pl.pawelec.webshop.model.enum_.CartStatus;
+import pl.pawelec.webshop.model.statuses.CartStatus;
 import pl.pawelec.webshop.service.OrderService;
 import pl.pawelec.webshop.model.dao.ShippingAddressDao;
 import pl.pawelec.webshop.model.dao.ShippingDetailsDao;
 import pl.pawelec.webshop.model.dao.UserInfoDao;
-import pl.pawelec.webshop.model.enum_.OrderStatus;
-import pl.pawelec.webshop.service.AppParameterService;
-import pl.pawelec.webshop.service.UserInfoService;
+import pl.pawelec.webshop.model.statuses.OrderStatus;
 
 /**
  *
@@ -216,7 +214,7 @@ public class OrderServiceImpl implements OrderService{
         UserInfo user = Optional.ofNullable(order.getCart().getUser()).orElse(new UserInfo());
         if(Optional.ofNullable(user.getLogin()).isPresent()){
             user.setCustomer(order.getCustomer());
-            userInfoDao.update(user); 
+            userInfoDao.update(user);
         }
     }
 

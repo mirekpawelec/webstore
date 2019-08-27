@@ -22,7 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
-import pl.pawelec.webshop.model.enum_.PlaceStatus;
+import pl.pawelec.webshop.model.statuses.PlaceStatus;
 
 /**
  *

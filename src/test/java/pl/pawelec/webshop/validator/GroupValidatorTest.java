@@ -9,9 +9,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- *
  * @author mirek
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ProductValidatorTest.class, AppParameterValidatorTest.class, UserInfoValidatorTest.class})
-public class GroupValidatorTest {}
+public class GroupValidatorTest {
+}

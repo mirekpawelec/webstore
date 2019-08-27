@@ -6,7 +6,6 @@
 package pl.pawelec.webshop.service.impl;
 
 import java.util.List;
-import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.webflow.execution.RequestContext;
 import pl.pawelec.webshop.exception.InvalidDeliveryException;
 import pl.pawelec.webshop.model.Delivery;
-import pl.pawelec.webshop.model.DeliveryItem;
-import pl.pawelec.webshop.model.enum_.DeliveryStatus;
+import pl.pawelec.webshop.model.statuses.DeliveryStatus;
 import pl.pawelec.webshop.model.Storageplace;
 import pl.pawelec.webshop.model.dao.DeliveryDao;
 import pl.pawelec.webshop.service.DeliveryService;

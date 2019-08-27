@@ -6,10 +6,9 @@
 package pl.pawelec.webshop.exception;
 
 /**
- *
  * @author mirek
  */
-public class NoProductInCartException extends RuntimeException{
+public class NoProductInCartException extends RuntimeException {
     private String productId;
 
     public NoProductInCartException(String productId) {

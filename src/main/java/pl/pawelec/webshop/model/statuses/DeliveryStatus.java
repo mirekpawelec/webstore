@@ -3,26 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.pawelec.webshop.model.enum_;
+package pl.pawelec.webshop.model.statuses;
+
 /**
  *
  * @author mirek
  */
-public enum RuleStatus {
-    OK("OK"),
-    BL("Blocked"),
-    FI("Canceled");
-    
-    private String description;
+public enum DeliveryStatus{
+    OK("Utworzona"),
+    RE("Realizacja"),
+    FI("Zamknięta");
 
-    private RuleStatus(String description) {
+    private String description; 
+
+    private DeliveryStatus(String description) {
         this.description = description;
     }
 
-    public String getName() {
-        return this.name();
-    }
     public String getDescription() {
         return description;
-    }    
+    }
 }

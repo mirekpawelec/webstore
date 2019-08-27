@@ -6,12 +6,12 @@
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<spring:url value="/resource/js/script.js" var="ownJs"/> 
-<spring:url value="/resource/js/angular.min.js" var="angularJs"/>    
-<spring:url value="/resource/js/main-angular.js" var="mainAngularJs" />
-<spring:url value="/resource/js/table_sorting.js" var="tableSortingJs" />
-<spring:url value="/resource/js/jquery.min.js" var="jQueryJs" />
-<spring:url value="/resource/js/bootstrap.min.js" var="bootstrapJs" />
+<spring:url value="/resources/js/script.js" var="ownJs"/>
+<spring:url value="/resources/js/angular.min.js" var="angularJs"/>
+<spring:url value="/resources/js/main-angular.js" var="mainAngularJs" />
+<spring:url value="/resources/js/table_sorting.js" var="tableSortingJs" />
+<spring:url value="/resources/js/jquery.min.js" var="jQueryJs" />
+<spring:url value="/resources/js/bootstrap.min.js" var="bootstrapJs" />
 <spring:url value="/faq" var="faqUrl"/>
 <spring:url value="/rule" var="ruleUrl"/>  
 <spring:message code="footer.footer.copyright.label" var="copyrightLbl"/>

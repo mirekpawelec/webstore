@@ -1,102 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:c="http://www.springframework.org/schema/c"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:flow="http://www.springframework.org/schema/webflow-config"
-       
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
-          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
-          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
-          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
           http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.4.xsd">
-    
-    <mvc:annotation-driven enable-matrix-variables="true" validator="validator" />
-    <context:component-scan base-package="pl.pawelec.webshop.controller ; pl.pawelec.webshop.validator ; pl.pawelec.webshop.aop"/>
-    <aop:aspectj-autoproxy/>
-
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/views/" />
-        <property name="suffix" value=".jsp" />
-    </bean>
-    
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource" p:basename="messages" />
-    
-    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" p:validationMessageSource-ref="messageSource"/>
-    
-    <mvc:resources mapping="/resource/**" location="/resources/" />
-    
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:maxUploadSize="20971520"/> <!-- 20971520 B = 20 MB -->
-    
-    <bean id="productImageValidator" class="pl.pawelec.webshop.validator.ProductImageValidator" p:sizeImage="2097152"/> <!-- max 2 MB -->
-    <bean id="productValidator" class="pl.pawelec.webshop.validator.ProductValidator">
-        <property name="springValidators">
-            <set>
-                <ref bean="productImageValidator"/>
-            </set>
-        </property>
-    </bean>
-    
-    <bean id="userPasswordValidator" class="pl.pawelec.webshop.validator.UserPasswordValidator"/>
-    <bean id="userLoginValidator" class="pl.pawelec.webshop.validator.UserLoginValidator"/> 
-    <bean id="userInfoValidator" class="pl.pawelec.webshop.validator.UserInfoValidator">
-        <property name="springValidators">
-            <set>
-                <ref bean="userPasswordValidator"/>
-                <ref bean="userLoginValidator"/>
-            </set>
-        </property>
-    </bean>
-    
-    <bean id="appParameterKeyValidator" class="pl.pawelec.webshop.validator.AppParameterKeyValidator"/> 
-    <bean id="appParameterValidator" class="pl.pawelec.webshop.validator.AppParameterValidator">
-        <property name="springValidators">
-            <set>
-                <ref bean="appParameterKeyValidator"/>
-            </set>
-        </property>
-    </bean>
-    
-    <bean id="questionFaqValidator" class="pl.pawelec.webshop.validator.QuestionFaqValidator"/> 
-    <bean id="faqValidator" class="pl.pawelec.webshop.validator.FaqValidator">
-        <property name="springValidators">
-            <set>
-                <ref bean="questionFaqValidator"/>
-            </set>
-        </property>
-    </bean>
-    
-    <bean id="ruleNameValidator" class="pl.pawelec.webshop.validator.RuleNameValidator"/> 
-    <bean id="ruleValidator" class="pl.pawelec.webshop.validator.RuleValidator">
-        <property name="springValidators">
-            <set>
-                <ref bean="ruleNameValidator"/>
-            </set>
-        </property>
-    </bean>
-    
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" p:defaultLocale="pl" />
-    
-    <mvc:interceptors>
-        <bean class="pl.pawelec.webshop.interceptor.PerformanceMonitorInterceptor" />
-        <bean class= "org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="language" />
-    </mvc:interceptors>
-    
-    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
-        <property name="converters">
-            <list>
-               <bean class="pl.pawelec.webshop.converter.RepositoryConverter"/>
-               <bean class="pl.pawelec.webshop.converter.ProductIdToProductConverter"/>
-               <bean class="pl.pawelec.webshop.converter.DeliveryIdToDeliveryConverter"/>
-               <bean class="pl.pawelec.webshop.converter.CustomerIdToCustomerConverter"/> 
-            </list>
-        </property>
-    </bean>
     
     <flow:flow-builder-services id="flowBuilderService" validator="validator" development="true"/>
     <flow:flow-executor id="deliveryFlowExecutor" flow-registry="deliveryFlowRegistry" />
@@ -106,13 +14,5 @@
     </flow:flow-registry>
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping" p:flowRegistry-ref="deliveryFlowRegistry" />
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter" p:flowExecutor-ref="deliveryFlowExecutor" />
-    
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-            <property name="messageConverters">
-                    <list>
-                         <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
-                    </list>
-            </property>
-    </bean>  
-   
+
 </beans>

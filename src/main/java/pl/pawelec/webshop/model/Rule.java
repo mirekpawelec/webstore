@@ -19,7 +19,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
-import pl.pawelec.webshop.model.enum_.RuleStatus;
+import pl.pawelec.webshop.model.statuses.RuleStatus;
 
 /**
  *

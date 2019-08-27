@@ -11,15 +11,14 @@ import pl.pawelec.webshop.model.dao.AbstrDao;
 import pl.pawelec.webshop.model.dao.ShippingAddressDao;
 
 /**
- *
  * @author mirek
  */
 @Repository
-public class ShippingAddressDaoImpl extends AbstrDao<ShippingAddress> implements ShippingAddressDao{
-    
+public class ShippingAddressDaoImpl extends AbstrDao<ShippingAddress> implements ShippingAddressDao {
+
     public ShippingAddress createAndReturn(ShippingAddress shippingAddress) {
         getEntityManager().persist(shippingAddress);
         return shippingAddress;
     }
-    
+
 }

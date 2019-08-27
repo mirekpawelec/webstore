@@ -44,13 +44,13 @@
                                         <p> ${invalidLoginMsg} </p>
                                     </div>
                                 </c:if>
-                            
+
                                 <c:if test="${param.logout != null}">
                                     <div class="alert alert-success">
                                         <p> ${loggedOutMsg} </p>
                                     </div>
                                 </c:if>
-                            
+
                                 <c:if test="${param.accessDenied != null}">
                                     <div class="alert alert-danger">
                                         <p> ${accessDeniedMsg} </p>
@@ -61,7 +61,7 @@
                                     <label class="input-group-addon" for="username"><span class="glyphicon glyphicon-user"></span></label>
                                     <input type="text" class="form-control" id="username" name="username" placeholder="${usernameLbl}" required>
                                 </div>
-                            
+
                                 <div class="input-group input-lg">
                                     <label class="input-group-addon" for="password"><span class="glyphicon glyphicon-pencil"></span></label>
                                     <input type="password" class="form-control" id="password" name="password" placeholder="${passwordLbl}" required>

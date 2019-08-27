@@ -5,11 +5,6 @@
  */
 package pl.pawelec.webshop.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pl.pawelec.webshop.model.Repository;
 import pl.pawelec.webshop.service.RepositoryService;
 import pl.pawelec.webshop.utils.AtributesModel;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 /**
  *

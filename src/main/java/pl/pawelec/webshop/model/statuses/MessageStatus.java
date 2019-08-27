@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.pawelec.webshop.model.enum_;
+package pl.pawelec.webshop.model.statuses;
 /**
  *
  * @author mirek
  */
-public enum UserRole {
-    ROLE_CLIENT("Client"),
-    ROLE_USER("User"),
-    ROLE_ADMIN("Manager"),
-    ROLE_DBA("Admin");
+public enum MessageStatus {
+
+    NE("New"),
+    RE("Read"),
+    WT("Wait"),
+    OK("Answered");
     
     private String description;
 
-    private UserRole(String description) {
+    private MessageStatus(String description) {
         this.description = description;
     }
 

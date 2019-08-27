@@ -6,8 +6,8 @@
 package pl.pawelec.webshop.service.impl;
 
 
-import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,24 +16,23 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.UserDetailsAdapter;
 import pl.pawelec.webshop.model.UserInfo;
 import pl.pawelec.webshop.model.dao.UserInfoDao;
-import pl.pawelec.webshop.model.enum_.UserStatus;
+import pl.pawelec.webshop.model.statuses.UserStatus;
 import pl.pawelec.webshop.service.UserInfoService;
 
+import java.util.List;
+
 /**
- *
  * @author mirek
  */
 @Service
 @Transactional
-public class UserInfoServiceImpl implements UserInfoService{
+public class UserInfoServiceImpl implements UserInfoService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserInfoServiceImpl.class);
 
     @Autowired
     private UserInfoDao userInfoDao;
-    
-    Logger logger = Logger.getLogger(UserInfoServiceImpl.class);
-    
-    
-    
+
     public void create(UserInfo userInfo) {
         userInfoDao.create(userInfo);
     }
@@ -70,24 +69,17 @@ public class UserInfoServiceImpl implements UserInfoService{
         return userInfoDao.exists(id);
     }
 
-    public UserInfo getByLogin(String userLogin){
+    public UserInfo getByLogin(String userLogin) {
         return userInfoDao.getByLogin(userLogin);
     }
-    
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserInfo activeUserInfo = userInfoDao.getByLogin(username, UserStatus.OK.name());
-        if(activeUserInfo==null){
-            logger.info("User not found");
+        if (activeUserInfo == null) {
+            LOGGER.info("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
-        
-        UserDetailsAdapter user = new UserDetailsAdapter(activeUserInfo);
-        return user;
-        
-//        GrantedAuthority authority = new SimpleGrantedAuthority(activeUserInfo.getRole());
-//        UserDetails userDetails = (UserDetails) new User(activeUserInfo.getLogin(), activeUserInfo.getPassword(), Arrays.asList(authority));
-//        return userDetails;
-        
+        return new UserDetailsAdapter(activeUserInfo);
     }
-    
 }

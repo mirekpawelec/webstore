@@ -6,10 +6,9 @@
 package pl.pawelec.webshop.exception;
 
 /**
- *
  * @author mirek
  */
-public class NoProductIdFoundException extends RuntimeException{
+public class NoProductIdFoundException extends RuntimeException {
     private Long productId;
 
     public NoProductIdFoundException(Long productId) {
@@ -18,5 +17,5 @@ public class NoProductIdFoundException extends RuntimeException{
 
     public Long getProductId() {
         return productId;
-    }    
+    }
 }

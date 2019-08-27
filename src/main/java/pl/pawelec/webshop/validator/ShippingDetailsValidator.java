@@ -12,22 +12,21 @@ import org.springframework.stereotype.Component;
 import pl.pawelec.webshop.model.ShippingDetails;
 
 /**
- *
  * @author mirek
  */
 @Component
 public class ShippingDetailsValidator {
-    
-    public void validateCollectShippingDetails(ShippingDetails shippingDetails, ValidationContext context){
+
+    public void validateCollectShippingDetails(ShippingDetails shippingDetails, ValidationContext context) {
         MessageContext messages = context.getMessageContext();
-        if(shippingDetails.getPaymentMethod().equals("NONE")){
+        if (shippingDetails.getPaymentMethod().equals("NONE")) {
             messages.addMessage(new MessageBuilder().error().source("paymentMethod")
-                       .code("pl.pawelec.webshop.validator.ShippingDetailsValidator.paymentMethod.message").build());
+                    .code("pl.pawelec.webshop.validator.ShippingDetailsValidator.paymentMethod.message").build());
         }
-        if(shippingDetails.getDeliveryMethod().equals("NONE")){
+        if (shippingDetails.getDeliveryMethod().equals("NONE")) {
             messages.addMessage(new MessageBuilder().error().source("deliveryMethod")
-                       .code("pl.pawelec.webshop.validator.ShippingDetailsValidator.deliveryMethod.message").build());
+                    .code("pl.pawelec.webshop.validator.ShippingDetailsValidator.deliveryMethod.message").build());
         }
     }
-    
+
 }

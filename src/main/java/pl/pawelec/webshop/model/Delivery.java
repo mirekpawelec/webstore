@@ -23,7 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import pl.pawelec.webshop.model.enum_.DeliveryStatus;
+import pl.pawelec.webshop.model.statuses.DeliveryStatus;
 
 /**
  *

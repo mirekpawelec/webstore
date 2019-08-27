@@ -11,11 +11,10 @@ import pl.pawelec.webshop.model.dao.AbstrDao;
 import pl.pawelec.webshop.model.dao.ShippingDetailsDao;
 
 /**
- *
  * @author mirek
  */
 @Repository
-public class ShippingDetailsDaoImpl extends AbstrDao<ShippingDetails> implements ShippingDetailsDao{
+public class ShippingDetailsDaoImpl extends AbstrDao<ShippingDetails> implements ShippingDetailsDao {
 
     @Override
     public ShippingDetails createAndReturn(ShippingDetails shippingDetails) {

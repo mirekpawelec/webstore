@@ -5,27 +5,24 @@
  */
 package pl.pawelec.webshop.controller;
 
-import java.time.LocalDateTime;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.pawelec.webshop.model.AppParameter;
-import pl.pawelec.webshop.utils.AtributesModel;
 import pl.pawelec.webshop.service.AppParameterService;
+import pl.pawelec.webshop.utils.AtributesModel;
 import pl.pawelec.webshop.validator.AppParameterValidator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -35,7 +32,7 @@ import pl.pawelec.webshop.validator.AppParameterValidator;
 @Controller
 @RequestMapping("admin/parameters")
 public class AppParameterController {
-    Logger logger = Logger.getLogger(AppParameterController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppParameterController.class);
     @Autowired
     private AppParameterService appParameterService;
     @Autowired
@@ -69,7 +66,7 @@ public class AppParameterController {
         if(suppresedFields.length > 0){
             throw new RuntimeException("It has occurred an attempt bind the illegal fields:" + StringUtils.arrayToCommaDelimitedString(suppresedFields));
         }
-        logger.info("Save... ["+appParameterToBeAdd+']');
+        LOGGER.info("Save... ["+appParameterToBeAdd+']');
         appParameterService.create(appParameterToBeAdd);
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("create", true);
@@ -96,7 +93,7 @@ public class AppParameterController {
             return "updateAppParameter";
         }
         appParameterToBeUpdate.setLastModificationDate(LocalDateTime.now());
-        logger.info("Save... ["+appParameterToBeUpdate+']');
+        LOGGER.info("Save... ["+appParameterToBeUpdate+']');
         appParameterService.update(appParameterToBeUpdate);
         redirectAttributes.addFlashAttribute("css", "success");
         redirectAttributes.addFlashAttribute("update", true);

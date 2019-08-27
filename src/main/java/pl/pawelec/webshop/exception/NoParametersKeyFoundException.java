@@ -6,10 +6,9 @@
 package pl.pawelec.webshop.exception;
 
 /**
- *
  * @author mirek
  */
-public class NoParametersKeyFoundException extends RuntimeException{
+public class NoParametersKeyFoundException extends RuntimeException {
     private String symbol;
     private String name;
 
@@ -25,5 +24,5 @@ public class NoParametersKeyFoundException extends RuntimeException{
     public String getName() {
         return name;
     }
-    
+
 }

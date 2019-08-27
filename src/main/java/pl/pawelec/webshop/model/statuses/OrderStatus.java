@@ -3,20 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.pawelec.webshop.model.enum_;
+package pl.pawelec.webshop.model.statuses;
 
 /**
  *
  * @author mirek
  */
-public enum CartStatus {
+public enum OrderStatus {
+    ED("Edit"),
+    WT("Wait"),
+    AC("Active"),
     RE("Realization"),
-    DE("Deleted"),
-    FI("Ordered");
+    CA("Canceled"),
+    FI("Completed");
     
     private String description;
 
-    private CartStatus(String description) {
+    private OrderStatus(String description) {
         this.description = description;
     }
 

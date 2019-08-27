@@ -32,7 +32,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
-import pl.pawelec.webshop.model.enum_.ProductStatus;
+import pl.pawelec.webshop.model.statuses.ProductStatus;
 import pl.pawelec.webshop.validator.ProductNo;
 
 /**
@@ -67,10 +67,10 @@ public class Product implements Serializable{
     @Column(nullable = false)
     private String description;
     
-    @Column(nullable = false, precision = 9, scale = 2)
+    @Column(name = "unit_price", nullable = false, precision = 9, scale = 2)
     private BigDecimal unitPrice;
     
-    @Column(nullable = false, precision = 4, scale = 0)
+    @Column(name = "quantity", nullable = false, precision = 4, scale = 0)
     private Integer quantityInBox;
     
     @Column(name = "is_promotion", length = 1)

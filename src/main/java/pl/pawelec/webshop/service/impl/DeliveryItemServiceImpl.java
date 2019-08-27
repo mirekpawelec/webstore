@@ -5,45 +5,46 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.DeliveryItem;
-import pl.pawelec.webshop.model.enum_.ProductState;
-import pl.pawelec.webshop.model.enum_.ProductStatus;
 import pl.pawelec.webshop.model.Repository;
 import pl.pawelec.webshop.model.dao.DeliveryItemDao;
-import pl.pawelec.webshop.model.enum_.QualityStatus;
+import pl.pawelec.webshop.model.statuses.ProductState;
+import pl.pawelec.webshop.model.statuses.ProductStatus;
+import pl.pawelec.webshop.model.statuses.QualityStatus;
 import pl.pawelec.webshop.service.DeliveryItemService;
 import pl.pawelec.webshop.service.RepositoryService;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
 /**
- *
  * @author mirek
  */
 @Service
 @Transactional
-public class DeliveryItemServiceImpl implements DeliveryItemService, Serializable{
-    Logger logger = Logger.getLogger(DeliveryItemServiceImpl.class);
-    
+public class DeliveryItemServiceImpl implements DeliveryItemService, Serializable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeliveryItemServiceImpl.class);
+
     @Autowired
     private DeliveryItemDao deliveryItemDao;
-    
+
     @Autowired
     private RepositoryService repositoryService;
-    
+
     @Override
     public void create(DeliveryItem deliveryItem) {
-        if(!Optional.ofNullable(deliveryItem.getItemId()).isPresent()){
-            logger.info("Create item");
+        if (!Optional.ofNullable(deliveryItem.getItemId()).isPresent()) {
+            LOGGER.info("Create item");
             deliveryItemDao.create(deliveryItem);
         } else {
-            logger.info("Update item");
+            LOGGER.info("Update item");
             deliveryItemDao.update(deliveryItem);
         }
     }
@@ -106,24 +107,25 @@ public class DeliveryItemServiceImpl implements DeliveryItemService, Serializabl
     @Override
     public String moveItemsToRepository(Long placeId, List<DeliveryItem> deliveryItems) {
         Repository repository = null;
-        try{
-            for(DeliveryItem item : deliveryItems){
+        try {
+            for (DeliveryItem item : deliveryItems) {
                 repository = new Repository();
-                repository.setLoadunitNo( item.getLoadunitNo() );
-                repository.getProduct().setProductId( item.getProduct().getProductId() );
-                repository.setQuantity( item.getQuantity() );
-                repository.getPlace().setPlaceId( placeId );
-                repository.setState( ProductState.NEW.name() );
-                repository.setQualityStatus( QualityStatus._0.getNumer() );
-                repository.setStatus( ProductStatus.OK.name() );
-                repository.setLastModificationDate( LocalDateTime.now() );
-                repository.setCreateDate( item.getCreateDate() );
+                repository.setLoadunitNo(item.getLoadunitNo());
+                repository.getProduct().setProductId(item.getProduct().getProductId());
+                repository.setQuantity(item.getQuantity());
+                repository.getPlace().setPlaceId(placeId);
+                repository.setState(ProductState.NEW.name());
+                repository.setQualityStatus(QualityStatus._0.getNumer());
+                repository.setStatus(ProductStatus.OK.name());
+                repository.setLastModificationDate(LocalDateTime.now());
+                repository.setCreateDate(item.getCreateDate());
                 repositoryService.create(repository);
                 item.setStatus(ProductStatus.OK.name());
-                this.update(item); 
-            };
-        } catch(Exception e){
-           return "false"; 
+                this.update(item);
+            }
+            ;
+        } catch (Exception e) {
+            return "false";
         }
         return "true";
     }
@@ -132,6 +134,6 @@ public class DeliveryItemServiceImpl implements DeliveryItemService, Serializabl
     public List<Object> getSummaryDelivery(Long id) {
         return deliveryItemDao.getSummaryDelivery(id);
     }
-    
+
 
 }

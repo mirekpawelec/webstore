@@ -26,7 +26,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
-import pl.pawelec.webshop.model.enum_.UserStatus;
+import pl.pawelec.webshop.model.statuses.UserStatus;
 
 /**
  *
@@ -35,12 +35,15 @@ import pl.pawelec.webshop.model.enum_.UserStatus;
 @Entity
 @Table(name = "users")
 public class UserInfo implements Serializable{
+
+    private static final long serialVersionUID = 2330943708684333901L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
     private Long userId;
     
-    @Column(nullable = false, length = 50)
+    @Column(name = "login", nullable = false, length = 50)
     private String login;
     
     @Column(name = "passwd", nullable = false, length = 100)
@@ -55,17 +58,13 @@ public class UserInfo implements Serializable{
     @Column(name = "last_name", length = 25)
     private String lastName;
 
-    @Column(length = 50)
+    @Column(name = "email", length = 50)
     private String email;
     
-    @Column(nullable = false, length = 50)
+    @Column(name = "role", nullable = false, length = 50)
     private String role;
-    
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
-    @OneToOne(fetch = FetchType.EAGER, optional = true)
-    private Customer customer;
             
-    @Column(length = 2)
+    @Column(name = "status", length = 2)
     private String status;
 
     @Convert(converter = TimestampToLocalDateTimeConverter.class)
@@ -79,12 +78,14 @@ public class UserInfo implements Serializable{
     @Convert(converter = TimestampToLocalDateTimeConverter.class)
     @Column(name = "c_date")
     private LocalDateTime createDate;
-    
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+    @OneToOne(fetch = FetchType.EAGER, optional = true)
+    private Customer customer;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Cart> cartSet = new HashSet<Cart>();
-    
-    
-    
+
     public UserInfo() {
         this.status = UserStatus.OK.name();
         this.lastModificationDate = LocalDateTime.now();
@@ -101,8 +102,6 @@ public class UserInfo implements Serializable{
         this.email = email;
         this.role = role;
     }
-
-
 
     public boolean isNew(){
         return !Optional.ofNullable(userId).isPresent();
@@ -126,7 +125,7 @@ public class UserInfo implements Serializable{
         this.login = login;
     }
 
-//    @NotEmpty(message = "{NotEmpty.UserInfo.password.validation}")
+    //@NotEmpty(message = "{NotEmpty.UserInfo.password.validation}")
     @Size(max = 100, message = "{Size.UserInfo.password.validation}")
     public String getPassword() {
         return password;
@@ -136,7 +135,7 @@ public class UserInfo implements Serializable{
         this.password = password;
     }
 
-//    @NotEmpty(message = "{NotEmpty.UserInfo.repeatPassword.validation}")
+    //@NotEmpty(message = "{NotEmpty.UserInfo.repeatPassword.validation}")
     @Size(max = 100, message = "{Size.UserInfo.repeatPassword.validation}")
     public String getRepeatPassword() {
         return repeatPassword;
@@ -186,14 +185,6 @@ public class UserInfo implements Serializable{
         this.role = role;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -226,6 +217,14 @@ public class UserInfo implements Serializable{
         this.createDate = createDate;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public Set<Cart> getCartSet() {
         return cartSet;
     }
@@ -234,8 +233,6 @@ public class UserInfo implements Serializable{
         this.cartSet = cartSet;
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -281,8 +278,6 @@ public class UserInfo implements Serializable{
         return true;
     }
 
-    
-    
     @Override
     public String toString() {
         return "UserInfo{" 
@@ -294,7 +289,7 @@ public class UserInfo implements Serializable{
                 + ", lastName=" + lastName 
                 + ", email=" + email 
                 + ", role=" + role 
-                + ", customer=" + customer 
+                + ", customer=" + customer
                 + ", status=" + status 
                 + ", lastLoginDate=" + lastLoginDate 
                 + ", lastModificationDate=" + lastModificationDate 

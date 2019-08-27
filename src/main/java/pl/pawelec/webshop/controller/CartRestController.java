@@ -5,28 +5,25 @@
  */
 package pl.pawelec.webshop.controller;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import pl.pawelec.webshop.converter.CartNotFoundException;
 import pl.pawelec.webshop.exception.NoProductIdFoundException;
 import pl.pawelec.webshop.model.Cart;
 import pl.pawelec.webshop.model.CartItem;
 import pl.pawelec.webshop.model.Product;
-import pl.pawelec.webshop.model.enum_.CartStatus;
+import pl.pawelec.webshop.model.statuses.CartStatus;
 import pl.pawelec.webshop.service.CartItemService;
 import pl.pawelec.webshop.service.CartService;
 import pl.pawelec.webshop.service.ProductService;
 import pl.pawelec.webshop.service.UserInfoService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -35,8 +32,8 @@ import pl.pawelec.webshop.service.UserInfoService;
 @Controller
 @RequestMapping("/rest/cart")
 public class CartRestController {
-    private static int DEFAULT_QUANTITY = 1;
-    Logger logger = Logger.getLogger(CartRestController.class);
+    private static final int DEFAULT_QUANTITY = 1;
+    private static final Logger LOGGER = LoggerFactory.getLogger(CartRestController.class);
     @Autowired
     private ProductService productService;
     @Autowired
@@ -61,7 +58,7 @@ public class CartRestController {
                 .sorted((o1, o2) -> o1.getCreateDate().compareTo(o2.getCreateDate())).findFirst().orElse(new Cart(sessionId));
             cart.updateCostOfAllItems();
         }catch(CartNotFoundException cnfe){
-            logger.info("No found cart for sessionId=" + sessionId);
+            LOGGER.info("No found cart for sessionId=" + sessionId);
         }
         return cart==null ? new Cart(sessionId) : cart;
     }
@@ -129,7 +126,7 @@ public class CartRestController {
         try{
             cart = cartService.getBySessionId(sessionId).stream().filter(c->c.getStatus().equals(CartStatus.RE.name())).findFirst().orElse(new Cart(sessionId));
         } catch (CartNotFoundException cnfe){
-            logger.info("No found cart for sessionId=" + sessionId);
+            LOGGER.info("No found cart for sessionId=" + sessionId);
         }
         return cart==null ? "0" : String.valueOf(cart.getCartItemSet().size());
     }

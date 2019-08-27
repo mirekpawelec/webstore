@@ -5,30 +5,37 @@
  */
 package pl.pawelec.webshop.validator;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.validation.ConstraintViolation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import pl.pawelec.webshop.model.Faq;
 
+import javax.validation.ConstraintViolation;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
- *
  * @author mirek
  */
-public class FaqValidator implements Validator{
+@Component
+public class FaqValidator implements Validator {
+
     @Autowired
     private javax.validation.Validator beanValidator;
-    private Set<Validator> springValidators;      
-    
-    
+    private Set<Validator> springValidators;
+
     public FaqValidator() {
         springValidators = new HashSet<Validator>();
     }
+
+    @Autowired
+    @Qualifier("questionFaqValidator")
     public void setSpringValidators(Set<Validator> springValidators) {
         this.springValidators = springValidators;
     }
+
     @Override
     public boolean supports(Class<?> type) {
         return Faq.class.equals(type);
@@ -43,9 +50,9 @@ public class FaqValidator implements Validator{
             errors.rejectValue(propertyPath, "", message);
         }
 
-        for(Validator validator: springValidators) {   
+        for (Validator validator : springValidators) {
             validator.validate(target, errors);
         }
     }
-    
+
 }

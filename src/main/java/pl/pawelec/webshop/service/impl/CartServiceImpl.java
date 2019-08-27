@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.Cart;
 import pl.pawelec.webshop.model.dao.CartDao;
-import pl.pawelec.webshop.model.enum_.CartStatus;
 import pl.pawelec.webshop.service.CartService;
 
 /**

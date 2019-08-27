@@ -5,8 +5,6 @@
  */
 package pl.pawelec.webshop.converter;
 
-import pl.pawelec.webshop.exception.*;
-
 /**
  *
  * @author mirek

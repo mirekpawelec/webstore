@@ -13,7 +13,7 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.pawelec.webshop.model.enum_.UserStatus;
+import pl.pawelec.webshop.model.statuses.UserStatus;
 
 /**
  *
@@ -22,15 +22,11 @@ import pl.pawelec.webshop.model.enum_.UserStatus;
 public class UserDetailsAdapter implements UserDetails, Serializable{
     private UserInfo userInfo;
     private LocalDateTime loginDate;
-    
-    
-    
+
     public UserDetailsAdapter(UserInfo userInfo) {
         this.userInfo = userInfo;
         this.loginDate = LocalDateTime.now();
     }
-    
-    
     
     public UserInfo getUserInfo() { 
         return userInfo; 

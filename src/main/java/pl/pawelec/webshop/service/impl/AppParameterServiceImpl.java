@@ -19,31 +19,37 @@ import pl.pawelec.webshop.service.AppParameterService;
  * @author mirek
  */
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class AppParameterServiceImpl implements AppParameterService{
+
     @Autowired
     private AppParameterDao appParameterDao;
-    
+
+    @Transactional
     @Override
     public void create(AppParameter appParameter) {
         appParameterDao.create(appParameter); 
     }
 
+    @Transactional
     @Override
     public void update(AppParameter appParameter) {
         appParameterDao.update(appParameter);
     }
 
+    @Transactional
     @Override
     public void delete(AppParameter appParameter) {
         appParameterDao.delete(appParameter);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         appParameterDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         appParameterDao.deleteAll();
@@ -74,6 +80,8 @@ public class AppParameterServiceImpl implements AppParameterService{
     }
     
     public List<AppParameter> getBySymbol(String symbol){
-        return getAll().stream().filter(sc->sc.getSymbol().equals(symbol)).collect(Collectors.toList());
+        return getAll().stream()
+                .filter(sc->sc.getSymbol().equals(symbol))
+                .collect(Collectors.toList());
     }
 }

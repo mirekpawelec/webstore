@@ -5,11 +5,8 @@
  */
 package pl.pawelec.webshop.controller;
 
-import java.util.Arrays;
-import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,20 +15,20 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.pawelec.webshop.model.UserDetailsAdapter;
 import pl.pawelec.webshop.model.UserInfo;
-import pl.pawelec.webshop.model.enum_.UserRole;
-import pl.pawelec.webshop.model.enum_.UserStatus;
+import pl.pawelec.webshop.model.statuses.UserRole;
+import pl.pawelec.webshop.model.statuses.UserStatus;
 import pl.pawelec.webshop.service.UserInfoService;
 import pl.pawelec.webshop.utils.AtributesModel;
 import pl.pawelec.webshop.validator.UserInfoValidator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
  *
@@ -40,7 +37,7 @@ import pl.pawelec.webshop.validator.UserInfoValidator;
 @SessionAttributes(names = {"loggedInUser"})
 @Controller
 public class LoginController {
-    private Logger logger = Logger.getLogger(ProductController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
     @Autowired
     private UserInfoService userInfoService;
     @Autowired
@@ -58,9 +55,9 @@ public class LoginController {
             loginUser.setLastLoginDate( ((UserDetailsAdapter) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getLoginDate() );
             userInfoService.update(loginUser);
         }
-        return "redirect:/home";
+        return "login";
     }
-    
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, HttpServletRequest request){
         model.addAttribute("jspFile", "login");
@@ -95,7 +92,7 @@ public class LoginController {
         }
         BCryptPasswordEncoder encrypt = new BCryptPasswordEncoder();
         userInfoToBeAdd.setPassword(encrypt.encode(userInfoToBeAdd.getPassword()));
-        logger.info("Save user... ["+userInfoToBeAdd+']');
+        LOGGER.info("Save user... ["+userInfoToBeAdd+']');
         userInfoService.create(userInfoToBeAdd);
         if(Optional.ofNullable(request.getRemoteUser()).isPresent()){
             redirectAttributes.addFlashAttribute("createInfo", userInfoToBeAdd.getFirstName()+" "+userInfoToBeAdd.getLastName());

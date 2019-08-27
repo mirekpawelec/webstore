@@ -9,8 +9,8 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
-<spring:url value="/resource/css/bootstrap.min.css" var="bootstrapCss" />
-<spring:url value="/resource/css/style.css" var="styleCss" />
+<spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCss" />
+<spring:url value="/resources/css/style.css" var="styleCss" />
 <spring:url value="/home" var="homePage"/>
 <spring:url value="#contact" var="contact" />
 <spring:url value="/cart" var="cartUrl"/>

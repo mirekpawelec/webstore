@@ -9,12 +9,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- *
  * @author mirek
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({CartControllerTest.class, DeliveryControllerTest.class, 
-                    HomeControllerTest.class, LoginControllerTest.class, 
-                    ProductControllerTest.class, RepositoryControllerTest.class, 
-                    AppParameterControllerTest.class, CartRestControllerTest.class})
-public class GroupControllerTest {}
+@Suite.SuiteClasses({CartControllerTest.class, DeliveryControllerTest.class,
+        HomeControllerTest.class, LoginControllerTest.class,
+        ProductControllerTest.class, RepositoryControllerTest.class,
+        AppParameterControllerTest.class, CartRestControllerTest.class})
+public class GroupControllerTest {
+}

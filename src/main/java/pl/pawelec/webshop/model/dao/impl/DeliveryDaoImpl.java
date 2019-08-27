@@ -5,79 +5,84 @@
  */
 package pl.pawelec.webshop.model.dao.impl;
 
+import org.springframework.stereotype.Repository;
+import pl.pawelec.webshop.model.Delivery;
+import pl.pawelec.webshop.model.Storageplace;
+import pl.pawelec.webshop.model.dao.AbstrDao;
+import pl.pawelec.webshop.model.dao.DeliveryDao;
+import pl.pawelec.webshop.model.statuses.DeliveryStatus;
+
+import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
-import org.springframework.stereotype.Repository;
-import pl.pawelec.webshop.model.Delivery;
-import pl.pawelec.webshop.model.enum_.DeliveryStatus;
-import pl.pawelec.webshop.model.Storageplace;
-import pl.pawelec.webshop.model.dao.AbstrDao;
-import pl.pawelec.webshop.model.dao.DeliveryDao;
 
 /**
- *
  * @author mirek
  */
 @Repository
-public class DeliveryDaoImpl extends AbstrDao<Delivery> implements DeliveryDao{
+public class DeliveryDaoImpl extends AbstrDao<Delivery> implements DeliveryDao {
 
     private static String DEFAULT_PLACE_NO = "select place";
     private static String DEFAULT_PLACE_NAME = "default place";
     private List<Delivery> deliverysList;
-    
+
     public List<Delivery> getByDriver(String firstName, String lastName, String phoneNo) {
         return deliverysList = this.getAll().parallelStream()
-                .filter((delivery) -> { if(firstName!=null && !firstName.isEmpty()){ 
-                                            return delivery.getDriverFirstName().equals(firstName);
-                                        } else {
-                                            return true;
-                                        }
+                .filter((delivery) -> {
+                    if (firstName != null && !firstName.isEmpty()) {
+                        return delivery.getDriverFirstName().equals(firstName);
+                    } else {
+                        return true;
+                    }
                 })
-                .filter((delivery) -> { if(lastName!=null && !lastName.isEmpty()){ 
-                                            return delivery.getDriverLastName().equals(lastName);
-                                        } else {
-                                            return true;
-                                        }   
+                .filter((delivery) -> {
+                    if (lastName != null && !lastName.isEmpty()) {
+                        return delivery.getDriverLastName().equals(lastName);
+                    } else {
+                        return true;
+                    }
                 })
-                .filter((delivery) -> { if(phoneNo!=null && !phoneNo.isEmpty()){ 
-                                            return delivery.getDriverPhoneNo().equals(phoneNo);
-                                        } else {
-                                            return true;
-                                        }
+                .filter((delivery) -> {
+                    if (phoneNo != null && !phoneNo.isEmpty()) {
+                        return delivery.getDriverPhoneNo().equals(phoneNo);
+                    } else {
+                        return true;
+                    }
                 })
                 .collect(Collectors.toList());
     }
-    
+
     public List<Delivery> getByTruck(String type, String truckNumber, String trailerOrCaravanNumber) {
         return deliverysList = this.getAll().parallelStream()
-                .filter((delivery) -> { if(type!=null && !type.isEmpty()){ 
-                                            return delivery.getTruckType().equals(type);
-                                        } else {
-                                            return true;
-                                        }
+                .filter((delivery) -> {
+                    if (type != null && !type.isEmpty()) {
+                        return delivery.getTruckType().equals(type);
+                    } else {
+                        return true;
+                    }
                 })
-                .filter((delivery) -> { if(truckNumber!=null && !truckNumber.isEmpty()){ 
-                                            return delivery.getTruckNumber().equals(truckNumber);
-                                        } else {
-                                            return true;
-                                        }   
+                .filter((delivery) -> {
+                    if (truckNumber != null && !truckNumber.isEmpty()) {
+                        return delivery.getTruckNumber().equals(truckNumber);
+                    } else {
+                        return true;
+                    }
                 })
-                .filter((delivery) -> { if(trailerOrCaravanNumber!=null && !trailerOrCaravanNumber.isEmpty()){ 
-                                            return delivery.getTrailerOrCaravanNumber().equals(trailerOrCaravanNumber);
-                                        } else {
-                                            return true;
-                                        }
+                .filter((delivery) -> {
+                    if (trailerOrCaravanNumber != null && !trailerOrCaravanNumber.isEmpty()) {
+                        return delivery.getTrailerOrCaravanNumber().equals(trailerOrCaravanNumber);
+                    } else {
+                        return true;
+                    }
                 })
                 .collect(Collectors.toList());
     }
-    
-    private Long getIdDefaultPlace(){
+
+    private Long getIdDefaultPlace() {
         Storageplace defaultPlace = (Storageplace) getEntityManager().createQuery("from Storageplace WHERE place_no = :placeNo AND name = :name")
-                                    .setParameter("placeNo", DEFAULT_PLACE_NO).setParameter("name", DEFAULT_PLACE_NAME).getSingleResult();
+                .setParameter("placeNo", DEFAULT_PLACE_NO).setParameter("name", DEFAULT_PLACE_NAME).getSingleResult();
         return defaultPlace.getPlaceId();
     }
 
@@ -86,22 +91,22 @@ public class DeliveryDaoImpl extends AbstrDao<Delivery> implements DeliveryDao{
         em.persist(entity);
         return entity;
     }
-    
-    public Delivery startProcessDelivery(){
+
+    public Delivery startProcessDelivery() {
         return createAndGetDelivery(new Delivery(new Storageplace(getIdDefaultPlace())));
     }
-    
+
     public boolean closeDelivery(Long id) {
-        try{
+        try {
             Delivery deliveryToClosing = getOneById(id);
-            if(deliveryToClosing.getStatus().equals(DeliveryStatus.RE.name())){
-                deliveryToClosing.setStatus( DeliveryStatus.FI.name() );
+            if (deliveryToClosing.getStatus().equals(DeliveryStatus.RE.name())) {
+                deliveryToClosing.setStatus(DeliveryStatus.FI.name());
                 deliveryToClosing.setFinishDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
                 this.update(deliveryToClosing);
             } else {
                 return false;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
         return true;

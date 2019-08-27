@@ -6,11 +6,10 @@
 package pl.pawelec.webshop.exception;
 
 /**
- *
  * @author mirek
  */
-public class NoLoadunitNoException extends RuntimeException{
-        
+public class NoLoadunitNoException extends RuntimeException {
+
     private String loadunitNo;
 
     public NoLoadunitNoException(String loadunitNo) {
@@ -20,5 +19,5 @@ public class NoLoadunitNoException extends RuntimeException{
     public String getLoadunitNo() {
         return loadunitNo;
     }
-    
+
 }

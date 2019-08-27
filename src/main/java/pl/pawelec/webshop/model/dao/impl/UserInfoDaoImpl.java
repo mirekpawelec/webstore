@@ -5,37 +5,39 @@
  */
 package pl.pawelec.webshop.model.dao.impl;
 
-import javax.persistence.NoResultException;
-import org.apache.log4j.Logger;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.UserInfo;
 import pl.pawelec.webshop.model.dao.AbstrDao;
 import pl.pawelec.webshop.model.dao.UserInfoDao;
 
+import javax.persistence.NoResultException;
+
 /**
- *
  * @author mirek
  */
+@Transactional
 @Repository
-public class UserInfoDaoImpl extends AbstrDao<UserInfo> implements UserInfoDao{
+public class UserInfoDaoImpl extends AbstrDao<UserInfo> implements UserInfoDao {
 
-    Logger logger = Logger.getLogger(UserInfoDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserInfoDaoImpl.class);
 
     @Override
     public UserInfo getByLogin(String userLogin) {
         UserInfo userInfo = null;
-        try{
+        try {
             userInfo = (UserInfo) getEntityManager().createQuery("from UserInfo WHERE login = :login")
-                        .setParameter("login", userLogin)
-                        .getSingleResult();
-        } catch (NoResultException nre){
-            logger.info("The " + userLogin + " does not exist!");
+                    .setParameter("login", userLogin)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+            LOGGER.info("The " + userLogin + " does not exist!");
         }
         return userInfo;
     }
-    
-    public UserInfo getByLogin(String userLogin, String status){
+
+    public UserInfo getByLogin(String userLogin, String status) {
         UserInfo userInfo = null;
         try{
             userInfo = (UserInfo) getEntityManager().createQuery("from UserInfo WHERE login = :login AND status = :status")
@@ -43,9 +45,9 @@ public class UserInfoDaoImpl extends AbstrDao<UserInfo> implements UserInfoDao{
                         .setParameter("status", status)
                         .getSingleResult();
         } catch (NoResultException nre){
-            logger.info("For parameters " + userLogin + ", " + status + " no data was found!");
+            LOGGER.info("For parameters " + userLogin + ", " + status + " no data was found!");
         }
         return userInfo;
     }
-    
+
 }

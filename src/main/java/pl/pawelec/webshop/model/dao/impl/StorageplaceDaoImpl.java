@@ -5,18 +5,18 @@
  */
 package pl.pawelec.webshop.model.dao.impl;
 
-import java.util.List;
 import org.springframework.stereotype.Repository;
 import pl.pawelec.webshop.model.Storageplace;
 import pl.pawelec.webshop.model.dao.AbstrDao;
 import pl.pawelec.webshop.model.dao.StorageplaceDao;
 
+import java.util.List;
+
 /**
- *
  * @author mirek
  */
 @Repository
-public class StorageplaceDaoImpl extends AbstrDao<Storageplace> implements StorageplaceDao{
+public class StorageplaceDaoImpl extends AbstrDao<Storageplace> implements StorageplaceDao {
 
     @Override
     public Storageplace getByPlaceNo(String placeNo) {
@@ -27,5 +27,5 @@ public class StorageplaceDaoImpl extends AbstrDao<Storageplace> implements Stora
     public List<Storageplace> getByType(String type) {
         return getEntityManager().createQuery("from Storageplace WHERE type = :type").setParameter("type", type).getResultList();
     }
-    
+
 }

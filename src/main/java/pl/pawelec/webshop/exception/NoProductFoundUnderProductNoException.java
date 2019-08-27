@@ -6,10 +6,9 @@
 package pl.pawelec.webshop.exception;
 
 /**
- *
  * @author mirek
  */
-public class NoProductFoundUnderProductNoException extends RuntimeException{
+public class NoProductFoundUnderProductNoException extends RuntimeException {
     private String productNo;
 
     public NoProductFoundUnderProductNoException(String productNo) {
@@ -24,5 +23,5 @@ public class NoProductFoundUnderProductNoException extends RuntimeException{
     public String toString() {
         return "NoProductFoundUnderProductNoException{" + "productNo=" + productNo + '}';
     }
-    
+
 }

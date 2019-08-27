@@ -5,14 +5,14 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.Storagearea;
 import pl.pawelec.webshop.model.dao.StorageareaDao;
 import pl.pawelec.webshop.service.StorageareaService;
+
+import java.util.List;
 
 /**
  *

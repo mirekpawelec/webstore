@@ -6,16 +6,15 @@
 package pl.pawelec.webshop.model.dao.impl;
 
 import org.springframework.stereotype.Repository;
+import pl.pawelec.webshop.model.Customer;
 import pl.pawelec.webshop.model.dao.AbstrDao;
 import pl.pawelec.webshop.model.dao.CustomerDao;
-import pl.pawelec.webshop.model.Customer;
 
 /**
- *
  * @author mirek
  */
 @Repository
-public class CustomerDaoImpl extends AbstrDao<Customer> implements CustomerDao{
+public class CustomerDaoImpl extends AbstrDao<Customer> implements CustomerDao {
     public Customer createAndReturn(Customer customer) {
         getEntityManager().persist(customer);
         return customer;

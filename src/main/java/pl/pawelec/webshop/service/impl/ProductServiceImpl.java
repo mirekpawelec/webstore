@@ -22,31 +22,37 @@ import pl.pawelec.webshop.service.ProductService;
  * @author mirek
  */
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService, Serializable{
+
     @Autowired
     private ProductDao productDao;
 
+    @Transactional
     @Override
     public void create(Product product) {
         productDao.create(product);
     }
 
+    @Transactional
     @Override
     public void update(Product product) {
         productDao.update(product);
     }
 
+    @Transactional
     @Override
     public void delete(Product product) {
         productDao.delete(product);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         productDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         productDao.deleteAll();

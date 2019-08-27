@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.pawelec.webshop.model.ClientMessage;
 import pl.pawelec.webshop.model.ProductFilter;
 import pl.pawelec.webshop.model.Product;
-import pl.pawelec.webshop.model.enum_.ProductStatus;
+import pl.pawelec.webshop.model.statuses.ProductStatus;
 import pl.pawelec.webshop.service.CartService;
 import pl.pawelec.webshop.service.ClientMessageService;
 import pl.pawelec.webshop.service.ProductService;
@@ -78,7 +77,7 @@ public class HomeController {
             model.addAttribute("successMsgSent", "success");
         }
         
-        List<Product> afterFilteringProducts = productService.getByStatus(ProductStatus.OK.name()).parallelStream()
+        List<Product> afterFilteringProducts = productService.getByStatus(ProductStatus.OK.name()).stream()
                 .filter( (product) -> { if( filterOfProducts.isInStock() )
                                             return product.getRepositorySet().size() > 0;
                                         else

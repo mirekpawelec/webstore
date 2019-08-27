@@ -11,11 +11,10 @@ import pl.pawelec.webshop.model.dao.AbstrDao;
 import pl.pawelec.webshop.model.dao.RuleDao;
 
 /**
- *
  * @author mirek
  */
 @Repository
-public class RuleDaoImpl extends AbstrDao<Rule> implements RuleDao{
+public class RuleDaoImpl extends AbstrDao<Rule> implements RuleDao {
 
     public Long createAndGetId(Rule rule) {
         getEntityManager().persist(rule);

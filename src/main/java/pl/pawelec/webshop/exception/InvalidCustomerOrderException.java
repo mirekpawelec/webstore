@@ -6,10 +6,9 @@
 package pl.pawelec.webshop.exception;
 
 /**
- *
  * @author mirek
  */
-public class InvalidCustomerOrderException extends RuntimeException{
+public class InvalidCustomerOrderException extends RuntimeException {
     private String message;
 
     public InvalidCustomerOrderException(String message) {

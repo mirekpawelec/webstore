@@ -14,7 +14,8 @@ import pl.pawelec.webshop.service.CustomerService;
  *
  * @author mirek
  */
-public class CustomerIdToCustomerConverter implements Converter<Object, Customer>{
+public class CustomerIdToCustomerConverter implements Converter<Object, Customer> {
+
     @Autowired
     private CustomerService customerService;
     

@@ -6,10 +6,9 @@
 package pl.pawelec.webshop.exception;
 
 /**
- *
  * @author mirek
  */
-public class InvalidDeliveryException extends RuntimeException{
+public class InvalidDeliveryException extends RuntimeException {
     private String message;
 
     public InvalidDeliveryException(String message) {

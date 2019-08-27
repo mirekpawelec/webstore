@@ -11,15 +11,14 @@ import pl.pawelec.webshop.model.dao.AbstrDao;
 import pl.pawelec.webshop.model.dao.FaqDao;
 
 /**
- *
  * @author mirek
  */
 @Repository
-public class FaqDaoImpl extends AbstrDao<Faq> implements FaqDao{
-    
+public class FaqDaoImpl extends AbstrDao<Faq> implements FaqDao {
+
     public Long createAndGetId(Faq faq) {
         getEntityManager().persist(faq);
         return faq.getFaqId();
     }
-    
+
 }

@@ -6,36 +6,37 @@
 package pl.pawelec.webshop.model.dao.impl;
 
 
-import java.util.List;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import pl.pawelec.webshop.model.CartItem;
 import pl.pawelec.webshop.model.dao.AbstrDao;
 import pl.pawelec.webshop.model.dao.CartItemDao;
 
+import java.util.List;
+
 /**
- *
  * @author mirek
  */
 @Repository
-public class CartItemDaoImpl extends AbstrDao<CartItem> implements CartItemDao{
+public class CartItemDaoImpl extends AbstrDao<CartItem> implements CartItemDao {
 
-    Logger logger = Logger.getLogger(CartItemDaoImpl.class);
-     
+    private static final Logger LOGGER = LoggerFactory.getLogger(CartItemDaoImpl.class);
+
     @Override
     public void delete(CartItem entity) {
-        try{
-            if(super.exists(entity.getId())){
+        try {
+            if (super.exists(entity.getId())) {
                 super.delete(entity);
             } else {
-                logger.info("The object does not exists!");
+                LOGGER.info("The object does not exists!");
             }
-        } catch(NullPointerException ne){
-            logger.info("The argument passed is empty!");
+        } catch (NullPointerException ne) {
+            LOGGER.info("The argument passed is empty!");
         }
     }
-    
-    public List<CartItem> getByCartId(Long cartId){
+
+    public List<CartItem> getByCartId(Long cartId) {
         return getEntityManager().createQuery("from CartItem where cart_id = :cartId").setParameter("cartId", cartId).getResultList();
     }
 }

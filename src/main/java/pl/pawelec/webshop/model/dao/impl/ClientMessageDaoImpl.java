@@ -11,8 +11,8 @@ import pl.pawelec.webshop.model.dao.AbstrDao;
 import pl.pawelec.webshop.model.dao.ClientMessageDao;
 
 /**
- *
  * @author mirek
  */
 @Repository
-public class ClientMessageDaoImpl extends AbstrDao<ClientMessage> implements ClientMessageDao{}
+public class ClientMessageDaoImpl extends AbstrDao<ClientMessage> implements ClientMessageDao {
+}

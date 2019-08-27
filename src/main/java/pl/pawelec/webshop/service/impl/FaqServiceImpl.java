@@ -20,11 +20,10 @@ import pl.pawelec.webshop.service.FaqService;
 @Service
 @Transactional
 public class FaqServiceImpl implements FaqService{
+
     @Autowired
     private FaqDao faqDao;
-    
 
-    
     public void create(Faq faq) {
         faqDao.create(faq);
     }

@@ -5,77 +5,66 @@
  */
 package pl.pawelec.webshop.model;
 
+import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
 
 /**
- *
  * @author mirek
  */
 @Entity
 @Table(name = "repository")
-public class Repository implements Serializable{
-    
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+public class Repository implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "loadunit_id", nullable = false)
     private Long loadunitId;
-    
+
     @Column(name = "loadunit_no", nullable = false, unique = true, length = 10)
     private String loadunitNo;
-    
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id") 
+
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
-    
+
     @Column(nullable = false)
     private Integer quantity;
-    
-    @JoinColumn(name = "place_id", referencedColumnName = "place_id") 
+
+    @JoinColumn(name = "place_id", referencedColumnName = "place_id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Storageplace place;
-    
+
     /**
-     *  if new, used, refurbished 
+     * if new, used, refurbished
      */
     @Column(nullable = false, length = 25)
     private String state;
-    
-    @Column(nullable = false)
+
+    @Column(name = "quality_status", nullable = false)
     private Integer qualityStatus;
-    
+
     @Column(nullable = false, length = 2)
     private String status;
-    
+
     @Column(name = "lm_date")
     @Convert(converter = TimestampToLocalDateTimeConverter.class)
     private LocalDateTime lastModificationDate;
-    
+
     @Column(name = "c_date")
     @Convert(converter = TimestampToLocalDateTimeConverter.class)
     private LocalDateTime createDate;
-         
-    
-    
+
+
     public Repository() {
         product = new Product();
         place = new Storageplace();
     }
 
-    
-    
+
     public Long getLoadunitId() {
         return loadunitId;
     }
@@ -83,7 +72,7 @@ public class Repository implements Serializable{
     public void setLoadunitId(Long loadunitId) {
         this.loadunitId = loadunitId;
     }
-    
+
     public String getLoadunitNo() {
         return loadunitNo;
     }
@@ -91,6 +80,7 @@ public class Repository implements Serializable{
     public void setLoadunitNo(String loadunitNo) {
         this.loadunitNo = loadunitNo;
     }
+
     public Product getProduct() {
         return product;
     }
@@ -155,8 +145,7 @@ public class Repository implements Serializable{
         this.createDate = createDate;
     }
 
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -186,22 +175,21 @@ public class Repository implements Serializable{
         return true;
     }
 
-    
-    
+
     @Override
     public String toString() {
-        return "Repository{" 
-                + "loadunitId=" + loadunitId 
-                + ", loadunitNo=" + loadunitNo 
-                + ", product=" + product 
-                + ", quantity=" + quantity 
-                + ", place=" + place 
-                + ", state=" + state 
-                + ", qualityStatus=" + qualityStatus 
-                + ", status=" + status 
-                + ", lastModificationDate=" + lastModificationDate 
-                + ", createDate=" + createDate 
+        return "Repository{"
+                + "loadunitId=" + loadunitId
+                + ", loadunitNo=" + loadunitNo
+                + ", product=" + product
+                + ", quantity=" + quantity
+                + ", place=" + place
+                + ", state=" + state
+                + ", qualityStatus=" + qualityStatus
+                + ", status=" + status
+                + ", lastModificationDate=" + lastModificationDate
+                + ", createDate=" + createDate
                 + '}';
     }
-    
+
 }

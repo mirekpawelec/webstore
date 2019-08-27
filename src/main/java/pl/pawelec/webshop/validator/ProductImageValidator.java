@@ -5,22 +5,23 @@
  */
 package pl.pawelec.webshop.validator;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import pl.pawelec.webshop.model.Product;
 
 /**
- *
  * @author mirek
  */
-public class ProductImageValidator implements Validator{
+@Component
+public class ProductImageValidator implements Validator {
 
-    private Long sizeImage;
+    private Long sizeImage = 2097152l;
 
     public void setSizeImage(Long sizeImage) {
         this.sizeImage = sizeImage;
     }
-    
+
     @Override
     public boolean supports(Class<?> type) {
         return Product.class.equals(type);
@@ -28,12 +29,13 @@ public class ProductImageValidator implements Validator{
 
     @Override
     public void validate(Object validationClass, Errors errors) {
-        try{
+        try {
             Product product = (Product) validationClass;
-            if(!product.getProductImage().isEmpty() && product.getProductImage().getSize() > sizeImage ){
+            if (!product.getProductImage().isEmpty() && product.getProductImage().getSize() > sizeImage) {
                 errors.rejectValue("productImage", "pl.pawelec.webshop.validator.ProductImageValidator.message");
             }
-        } catch(NullPointerException n){}
+        } catch (NullPointerException n) {
+        }
     }
-    
+
 }

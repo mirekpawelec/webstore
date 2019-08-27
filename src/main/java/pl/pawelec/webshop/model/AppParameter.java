@@ -54,8 +54,6 @@ public class AppParameter implements Serializable{
     @Column(name = "c_date")
     private LocalDateTime createDate;
 
-    
-    
     public AppParameter() {
         this.lastModificationDate = LocalDateTime.now();
         this.createDate = LocalDateTime.now();
@@ -68,9 +66,7 @@ public class AppParameter implements Serializable{
         this.value = value;
         this.description = description;
     }
-    
-    
-    
+
     public boolean isNew(){
         return this.getParameterId()==null;
     }
@@ -138,8 +134,6 @@ public class AppParameter implements Serializable{
         this.createDate = createDate;
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -173,8 +167,6 @@ public class AppParameter implements Serializable{
         return true;
     }
 
-
-
     @Override
     public String toString() {
         return "AppParameter{" 
@@ -187,5 +179,4 @@ public class AppParameter implements Serializable{
                 + ", createDate=" + createDate
                 + '}';
     }
-
 }
