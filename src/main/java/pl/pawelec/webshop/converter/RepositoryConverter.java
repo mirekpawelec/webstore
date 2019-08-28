@@ -25,7 +25,7 @@ public class RepositoryConverter implements Converter<Object, Repository> {
     @Override
     public Repository convert(Object element) {
         Long id = Long.valueOf((String) element);
-        Repository repository = repositoryService.getById(id);
+        Repository repository = repositoryService.getOneById(id);
         LOGGER.info("### RepositoryConverter: element=" + id + " , repository=" + repository);
         return repository;
     }
