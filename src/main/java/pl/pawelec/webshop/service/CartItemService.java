@@ -5,21 +5,10 @@
  */
 package pl.pawelec.webshop.service;
 
-import java.util.List;
 import pl.pawelec.webshop.model.CartItem;
 
 /**
- *
  * @author mirek
  */
-public interface CartItemService {
-    void create(CartItem cartItem);
-    void update(CartItem cartItem);
-    void delete(CartItem cartItem);
-    void deleteById(Long id);
-    void deleteAll();
-    CartItem getOneById(Long id);
-    List<CartItem> getAll();
-    Long count();
-    boolean exists(Long id);
+public interface CartItemService extends CrudService<CartItem> {
 }

@@ -5,23 +5,16 @@
  */
 package pl.pawelec.webshop.service;
 
-import java.util.List;
 import pl.pawelec.webshop.model.AppParameter;
 
+import java.util.List;
+
 /**
- *
  * @author mirek
  */
-public interface AppParameterService {
-    void create(AppParameter appParameter);
-    void update(AppParameter appParameter);
-    void delete(AppParameter appParameter);
-    void deleteById(Long id);
-    void deleteAll();
-    AppParameter getOneById(Long id);
-    List<AppParameter> getAll();
-    Long count();
-    boolean exists(Long id);
+public interface AppParameterService extends CrudService<AppParameter> {
+
     AppParameter getByUniqueKey(String symbol, String name);
+
     List<AppParameter> getBySymbol(String symbol);
 }

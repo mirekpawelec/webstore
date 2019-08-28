@@ -1,15 +1,15 @@
 package pl.pawelec.webshop.service.impl;
 
 
-import java.io.Serializable;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.pawelec.webshop.exception.NoProductIdFoundException;
 import pl.pawelec.webshop.model.Product;
 import pl.pawelec.webshop.model.dao.ProductDao;
 import pl.pawelec.webshop.service.ProductService;
+
+import java.io.Serializable;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,13 +17,9 @@ import pl.pawelec.webshop.service.ProductService;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author mirek
- */
 @Service
 @Transactional(readOnly = true)
-public class ProductServiceImpl implements ProductService, Serializable{
+public class ProductServiceImpl implements ProductService, Serializable {
 
     @Autowired
     private ProductDao productDao;
@@ -84,7 +80,7 @@ public class ProductServiceImpl implements ProductService, Serializable{
     }
 
     @Override
-    public Product getOneByProductNo(String productNo){
+    public Product getOneByProductNo(String productNo) {
         return productDao.getOneByProductNo(productNo);
     }
 

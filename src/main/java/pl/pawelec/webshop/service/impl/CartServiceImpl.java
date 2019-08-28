@@ -5,7 +5,6 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,37 +12,40 @@ import pl.pawelec.webshop.model.Cart;
 import pl.pawelec.webshop.model.dao.CartDao;
 import pl.pawelec.webshop.service.CartService;
 
-/**
- *
- * @author mirek
- */
+import java.util.List;
+
 @Service
-@Transactional
-public class CartServiceImpl implements CartService{
+@Transactional(readOnly = true)
+public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartDao cartDao;
-    
+
+    @Transactional
     @Override
     public void create(Cart cart) {
         cartDao.create(cart);
     }
 
+    @Transactional
     @Override
     public void update(Cart cart) {
         cartDao.update(cart);
     }
 
+    @Transactional
     @Override
     public void delete(Cart cart) {
         cartDao.delete(cart);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         cartDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         cartDao.deleteAll();
@@ -53,7 +55,6 @@ public class CartServiceImpl implements CartService{
     public Cart getOneById(Long id) {
         Cart cart = cartDao.getOneById(id);
         cart.updateCostOfAllItems();
-//        System.out.println("id=" + id +", cart="+ cart);
         return cart;
     }
 
@@ -71,19 +72,20 @@ public class CartServiceImpl implements CartService{
     public boolean exists(Long id) {
         return cartDao.exists(id);
     }
-    
+
+    @Transactional
     @Override
     public Cart createAndGetCart(Cart cart) {
         return cartDao.createAndGetCart(cart);
     }
-    
-    public List<Cart> getBySessionId(String sessionId){
+
+    public List<Cart> getBySessionId(String sessionId) {
         return cartDao.getBySessionId(sessionId);
     }
-    
-    public boolean existsBySessionId(String sessionId, String status){
+
+    public boolean existsBySessionId(String sessionId, String status) {
         return cartDao.existsBySessionId(sessionId, status);
     }
 
-    
+
 }

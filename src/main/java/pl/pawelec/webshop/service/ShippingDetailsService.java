@@ -5,22 +5,12 @@
  */
 package pl.pawelec.webshop.service;
 
-import java.util.List;
 import pl.pawelec.webshop.model.ShippingDetails;
 
 /**
- *
  * @author mirek
  */
-public interface ShippingDetailsService {
-    void create(ShippingDetails shippingDetails);
-    void update(ShippingDetails shippingDetails);
-    void delete(ShippingDetails shippingDetails);
-    void deleteById(Long id);
-    void deleteAll();
-    ShippingDetails getOneById(Long id);
-    List<ShippingDetails> getAll();
-    Long count();
-    boolean exists(Long id);
+public interface ShippingDetailsService extends CrudService<ShippingDetails> {
+
     ShippingDetails createAndReturn(ShippingDetails shippingDetails);
 }

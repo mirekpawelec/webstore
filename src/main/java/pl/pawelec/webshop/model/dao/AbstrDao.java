@@ -63,7 +63,6 @@ public abstract class AbstrDao<T extends Object> implements Dao<T> {
     }
 
     public T getOneById(Serializable id) {
-        //return (T) getEntityManager().createQuery("from " + getDomainName() + " where id = :id").setParameter("id", Id).getSingleResult();    
         return find(id);
     }
 

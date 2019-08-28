@@ -5,7 +5,6 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,36 +12,40 @@ import pl.pawelec.webshop.model.ClientMessage;
 import pl.pawelec.webshop.model.dao.ClientMessageDao;
 import pl.pawelec.webshop.service.ClientMessageService;
 
-/**
- *
- * @author mirek
- */
+import java.util.List;
+
 @Service
-@Transactional
-public class ClientMessageServiceImpl implements ClientMessageService{
+@Transactional(readOnly = true)
+public class ClientMessageServiceImpl implements ClientMessageService {
+
     @Autowired
     private ClientMessageDao clientMessageDao;
-    
+
+    @Transactional
     @Override
     public void create(ClientMessage clientMessage) {
         clientMessageDao.create(clientMessage);
     }
 
+    @Transactional
     @Override
     public void update(ClientMessage clientMessage) {
         clientMessageDao.update(clientMessage);
     }
 
+    @Transactional
     @Override
     public void delete(ClientMessage clientMessage) {
         clientMessageDao.delete(clientMessage);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         clientMessageDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         clientMessageDao.deleteAll();
@@ -67,5 +70,5 @@ public class ClientMessageServiceImpl implements ClientMessageService{
     public boolean exists(Long id) {
         return clientMessageDao.exists(id);
     }
-    
+
 }

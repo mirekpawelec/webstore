@@ -5,25 +5,20 @@
  */
 package pl.pawelec.webshop.service;
 
-import java.util.List;
 import pl.pawelec.webshop.model.Repository;
 
+import java.util.List;
+
 /**
- *
  * @author mirek
  */
-public interface RepositoryService {
-    void create(Repository repository);
-    void update(Repository repository);
-    void delete(Repository repository);
-    void deleteById(Long id);
-    void deleteAll();
-    Repository getById(Long id);
-    List<Repository> getAll();
-    Long count();
-    boolean exists(Long id);
+public interface RepositoryService extends CrudService<Repository> {
+
     Repository getByLoadunitNo(String loadunitNo);
+
     List<Repository> getByStatus(String status);
+
     List<Repository> getByProductNo(String productNo);
+
     List<Repository> getByOwnCriteria(String sqlQuery, String modificationDate, String createDate);
 }

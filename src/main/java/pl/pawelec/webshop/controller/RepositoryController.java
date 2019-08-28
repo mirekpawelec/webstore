@@ -75,7 +75,6 @@ public class RepositoryController {
             sqlQuery += " AND ";
         }
   
-//        System.out.println("sqlSymbol="+sqlSymbol+ ", sql="+sqlQuery +", lastModificationDate="+lastModificationDate+", createDate="+createDate);      
         List<Repository> sqlResult = /*new ArrayList<>();*/ repositoryService.getByOwnCriteria(sqlQuery, lastModificationDate, createDate);
         if(sqlResult.size()>0){
             model.addAttribute("wholeStock", sqlResult);

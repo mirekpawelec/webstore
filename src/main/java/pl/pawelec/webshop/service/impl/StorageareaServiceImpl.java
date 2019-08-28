@@ -14,44 +14,45 @@ import pl.pawelec.webshop.service.StorageareaService;
 
 import java.util.List;
 
-/**
- *
- * @author mirek
- */
 @Service
-@Transactional
-public class StorageareaServiceImpl implements StorageareaService{
+@Transactional(readOnly = true)
+public class StorageareaServiceImpl implements StorageareaService {
 
     @Autowired
     private StorageareaDao storageareaDao;
-    
+
+    @Transactional
     @Override
     public void create(Storagearea storagearea) {
         storageareaDao.create(storagearea);
     }
 
+    @Transactional
     @Override
     public void update(Storagearea storagearea) {
         storageareaDao.update(storagearea);
     }
 
+    @Transactional
     @Override
     public void delete(Storagearea storagearea) {
         storageareaDao.delete(storagearea);
     }
 
+    @Transactional
     @Override
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         storageareaDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         storageareaDao.deleteAll();
     }
 
     @Override
-    public Storagearea getById(Long id) {
+    public Storagearea getOneById(Long id) {
         return storageareaDao.getOneById(id);
     }
 

@@ -5,7 +5,6 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,36 +12,40 @@ import pl.pawelec.webshop.model.Customer;
 import pl.pawelec.webshop.model.dao.CustomerDao;
 import pl.pawelec.webshop.service.CustomerService;
 
-/**
- *
- * @author mirek
- */
+import java.util.List;
+
 @Service
-@Transactional
-public class CustomerServiceImpl implements CustomerService{
+@Transactional(readOnly = true)
+public class CustomerServiceImpl implements CustomerService {
+
     @Autowired
     private CustomerDao customerDao;
-    
+
+    @Transactional
     @Override
     public void create(Customer customer) {
         customerDao.create(customer);
     }
 
+    @Transactional
     @Override
     public void update(Customer customer) {
         customerDao.update(customer);
     }
 
+    @Transactional
     @Override
     public void delete(Customer customer) {
         customerDao.delete(customer);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         customerDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         customerDao.deleteAll();
@@ -66,8 +69,9 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public boolean exists(Long id) {
         return customerDao.exists(id);
-    }   
+    }
 
+    @Transactional
     @Override
     public Customer createAndReturn(Customer customer) {
         return customerDao.createAndReturn(customer);

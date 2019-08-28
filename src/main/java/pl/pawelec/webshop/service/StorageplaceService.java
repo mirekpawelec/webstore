@@ -5,23 +5,16 @@
  */
 package pl.pawelec.webshop.service;
 
-import java.util.List;
 import pl.pawelec.webshop.model.Storageplace;
 
+import java.util.List;
+
 /**
- *
  * @author mirek
- */       
-public interface StorageplaceService {
-    void create(Storageplace storageplace);
-    void update(Storageplace storageplace);
-    void delete(Storageplace storageplace);
-    void deleteById(Long id);
-    void deleteAll();
-    Storageplace getById(Long id);
-    List<Storageplace> getAll();
-    Long count();
-    boolean exists(Long id);
+ */
+public interface StorageplaceService extends CrudService<Storageplace> {
+
     Storageplace getByPlaceNo(String placeNo);
+
     List<Storageplace> getByType(String type);
 }

@@ -5,27 +5,23 @@
  */
 package pl.pawelec.webshop.service;
 
-import java.util.List;
 import pl.pawelec.webshop.model.DeliveryItem;
+
+import java.util.List;
 
 
 /**
- *
  * @author mirek
  */
-public interface DeliveryItemService {
-    void create(DeliveryItem deliveryItem);
-    void update(DeliveryItem deliveryItem);
-    void delete(DeliveryItem deliveryItem);
-    void deleteById(Long id);
-    void deleteAll();
-    DeliveryItem getOneById(Long id);
-    List<DeliveryItem> getAll();
-    Long count();
-    boolean exists(Long id);
+public interface DeliveryItemService extends CrudService<DeliveryItem> {
+
     DeliveryItem getByLoadunitNo(String loadunitNo);
+
     List<DeliveryItem> getByDeliveryId(Long deliveryId);
+
     DeliveryItem newDeliveryItem();
+
     String moveItemsToRepository(Long placeId, List<DeliveryItem> deliveryItems);
+
     List<Object> getSummaryDelivery(Long id);
 }

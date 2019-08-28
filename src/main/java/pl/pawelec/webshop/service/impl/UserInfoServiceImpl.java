@@ -5,7 +5,6 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +20,8 @@ import pl.pawelec.webshop.service.UserInfoService;
 
 import java.util.List;
 
-/**
- * @author mirek
- */
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UserInfoServiceImpl implements UserInfoService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserInfoServiceImpl.class);
@@ -33,42 +29,57 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     private UserInfoDao userInfoDao;
 
+    @Transactional
+    @Override
     public void create(UserInfo userInfo) {
         userInfoDao.create(userInfo);
     }
 
+    @Transactional
+    @Override
     public void update(UserInfo userInfo) {
         userInfoDao.update(userInfo);
     }
 
+    @Transactional
+    @Override
     public void delete(UserInfo userInfo) {
         userInfoDao.delete(userInfo);
     }
 
+    @Transactional
+    @Override
     public void deleteById(Long id) {
         userInfoDao.deleteById(id);
     }
 
+    @Transactional
+    @Override
     public void deleteAll() {
         userInfoDao.deleteAll();
     }
 
+    @Override
     public UserInfo getOneById(Long id) {
         return userInfoDao.getOneById(id);
     }
 
+    @Override
     public List<UserInfo> getAll() {
         return userInfoDao.getAll();
     }
 
+    @Override
     public Long count() {
         return userInfoDao.count();
     }
 
+    @Override
     public boolean exists(Long id) {
         return userInfoDao.exists(id);
     }
 
+    @Override
     public UserInfo getByLogin(String userLogin) {
         return userInfoDao.getByLogin(userLogin);
     }

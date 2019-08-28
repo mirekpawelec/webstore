@@ -5,22 +5,12 @@
  */
 package pl.pawelec.webshop.service;
 
-import java.util.List;
 import pl.pawelec.webshop.model.ShippingAddress;
 
 /**
- *
  * @author mirek
  */
-public interface ShippingAddressService {
-    void create(ShippingAddress shippingAddress);
-    void update(ShippingAddress shippingAddress);
-    void delete(ShippingAddress shippingAddress);
-    void deleteById(Long id);
-    void deleteAll();
-    ShippingAddress getOneById(Long id);
-    List<ShippingAddress> getAll();
-    Long count();
-    boolean exists(Long id);
+public interface ShippingAddressService extends CrudService<ShippingAddress> {
+
     ShippingAddress createAndReturn(ShippingAddress shippingAddress);
 }

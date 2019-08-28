@@ -5,7 +5,6 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,37 +12,40 @@ import pl.pawelec.webshop.model.CartItem;
 import pl.pawelec.webshop.model.dao.CartItemDao;
 import pl.pawelec.webshop.service.CartItemService;
 
-/**
- *
- * @author mirek
- */
+import java.util.List;
+
 @Service
-@Transactional
-public class CartItemServiceImpl implements CartItemService{
+@Transactional(readOnly = true)
+public class CartItemServiceImpl implements CartItemService {
 
     @Autowired
     private CartItemDao cartItemDao;
-    
+
+    @Transactional
     @Override
     public void create(CartItem cartItem) {
         cartItemDao.create(cartItem);
     }
 
+    @Transactional
     @Override
     public void update(CartItem cartItem) {
         cartItemDao.update(cartItem);
     }
 
+    @Transactional
     @Override
     public void delete(CartItem cartItem) {
         cartItemDao.delete(cartItem);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         cartItemDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         cartItemDao.deleteAll();
@@ -68,5 +70,5 @@ public class CartItemServiceImpl implements CartItemService{
     public boolean exists(Long id) {
         return cartItemDao.exists(id);
     }
-    
+
 }

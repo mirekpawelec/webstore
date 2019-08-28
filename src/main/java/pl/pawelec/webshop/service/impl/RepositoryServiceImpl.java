@@ -5,7 +5,6 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,44 +12,47 @@ import pl.pawelec.webshop.model.Repository;
 import pl.pawelec.webshop.model.dao.RepositoryDao;
 import pl.pawelec.webshop.service.RepositoryService;
 
-/**
- *
- * @author mirek
- */
+import java.util.List;
+
 @Service
-@Transactional
-public class RepositoryServiceImpl implements RepositoryService{
+@Transactional(readOnly = true)
+public class RepositoryServiceImpl implements RepositoryService {
 
     @Autowired
     private RepositoryDao repositoryDao;
-    
+
+    @Transactional
     @Override
     public void create(Repository repository) {
         repositoryDao.create(repository);
     }
 
+    @Transactional
     @Override
     public void update(Repository repository) {
         repositoryDao.update(repository);
     }
 
+    @Transactional
     @Override
     public void delete(Repository repository) {
         repositoryDao.delete(repository);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         repositoryDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         repositoryDao.deleteAll();
     }
 
     @Override
-    public Repository getById(Long id) {
+    public Repository getOneById(Long id) {
         return repositoryDao.getOneById(id);
     }
 
@@ -88,5 +90,5 @@ public class RepositoryServiceImpl implements RepositoryService{
     public List<Repository> getByOwnCriteria(String sqlQuery, String modificationDate, String createDate) {
         return repositoryDao.getByOwnCriteria(sqlQuery, modificationDate, createDate);
     }
-    
+
 }

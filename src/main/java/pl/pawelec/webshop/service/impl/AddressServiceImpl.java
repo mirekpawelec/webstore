@@ -5,7 +5,6 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,36 +12,40 @@ import pl.pawelec.webshop.model.Address;
 import pl.pawelec.webshop.model.dao.AddressDao;
 import pl.pawelec.webshop.service.AddressService;
 
-/**
- *
- * @author mirek
- */
+import java.util.List;
+
 @Service
-@Transactional
-public class AddressServiceImpl implements AddressService{
+@Transactional(readOnly = true)
+public class AddressServiceImpl implements AddressService {
+
     @Autowired
     private AddressDao addressDao;
-    
+
+    @Transactional
     @Override
     public void create(Address address) {
         addressDao.create(address);
     }
 
+    @Transactional
     @Override
     public void update(Address address) {
         addressDao.update(address);
     }
 
+    @Transactional
     @Override
     public void delete(Address address) {
         addressDao.delete(address);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         addressDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         addressDao.deleteAll();
@@ -66,7 +69,7 @@ public class AddressServiceImpl implements AddressService{
     @Override
     public boolean exists(Long id) {
         return addressDao.exists(id);
-    }  
+    }
 
     @Override
     public Address createAndReturn(Address address) {

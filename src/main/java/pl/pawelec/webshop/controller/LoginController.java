@@ -47,9 +47,6 @@ public class LoginController {
     
     @RequestMapping(value = "/*")
     public String homepage(HttpServletRequest request){
-//        System.out.println("User=" + request.getRemoteUser());
-//        System.out.println("Principal name=" + SecurityContextHolder.getContext().getAuthentication().getName());
-//        System.out.println("Principal principal=" + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         if(Optional.ofNullable(request.getRemoteUser()).isPresent()){
             UserInfo loginUser = userInfoService.getByLogin(request.getRemoteUser());
             loginUser.setLastLoginDate( ((UserDetailsAdapter) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getLoginDate() );

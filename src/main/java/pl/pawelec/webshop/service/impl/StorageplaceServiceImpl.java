@@ -5,7 +5,6 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,43 +12,47 @@ import pl.pawelec.webshop.model.Storageplace;
 import pl.pawelec.webshop.model.dao.StorageplaceDao;
 import pl.pawelec.webshop.service.StorageplaceService;
 
-/**
- *
- * @author mirek
- */
+import java.util.List;
+
 @Service
-@Transactional 
-public class StorageplaceServiceImpl implements StorageplaceService{
+@Transactional(readOnly = true)
+public class StorageplaceServiceImpl implements StorageplaceService {
+
     @Autowired
     private StorageplaceDao storageplaceDao;
-    
+
+    @Transactional
     @Override
     public void create(Storageplace storageplace) {
         storageplaceDao.create(storageplace);
     }
 
+    @Transactional
     @Override
     public void update(Storageplace storageplace) {
         storageplaceDao.update(storageplace);
     }
 
+    @Transactional
     @Override
     public void delete(Storageplace storageplace) {
         storageplaceDao.delete(storageplace);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         storageplaceDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         storageplaceDao.deleteAll();
     }
 
     @Override
-    public Storageplace getById(Long id) {
+    public Storageplace getOneById(Long id) {
         return storageplaceDao.getOneById(id);
     }
 
@@ -72,8 +75,9 @@ public class StorageplaceServiceImpl implements StorageplaceService{
     public Storageplace getByPlaceNo(String placeNo) {
         return storageplaceDao.getByPlaceNo(placeNo);
     }
-    
-    public List<Storageplace> getByType(String type){
+
+    @Override
+    public List<Storageplace> getByType(String type) {
         return storageplaceDao.getByType(type);
     }
 }

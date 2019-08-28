@@ -5,22 +5,14 @@
  */
 package pl.pawelec.webshop.service;
 
-import java.util.List;
 import pl.pawelec.webshop.model.Rule;
 
+import java.util.List;
+
 /**
- *
  * @author mirek
  */
-public interface RuleService {
-    void create(Rule rule);
-    void update(Rule rule);
-    void delete(Rule rule);
-    void deleteById(Long id);
-    void deleteAll();
-    Rule getOneById(Long id);
-    List<Rule> getAll();
-    Long count();
-    boolean exists(Long id);
+public interface RuleService extends CrudService<Rule> {
+
     Long createAndGetId(Rule rule);
 }

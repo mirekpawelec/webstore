@@ -24,12 +24,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * @author mirek
- */
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class DeliveryItemServiceImpl implements DeliveryItemService, Serializable {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(DeliveryItemServiceImpl.class);
 
     @Autowired
@@ -38,6 +36,7 @@ public class DeliveryItemServiceImpl implements DeliveryItemService, Serializabl
     @Autowired
     private RepositoryService repositoryService;
 
+    @Transactional
     @Override
     public void create(DeliveryItem deliveryItem) {
         if (!Optional.ofNullable(deliveryItem.getItemId()).isPresent()) {
@@ -49,21 +48,25 @@ public class DeliveryItemServiceImpl implements DeliveryItemService, Serializabl
         }
     }
 
+    @Transactional
     @Override
     public void update(DeliveryItem deliveryItem) {
         deliveryItemDao.update(deliveryItem);
     }
 
+    @Transactional
     @Override
     public void delete(DeliveryItem deliveryItem) {
         deliveryItemDao.delete(deliveryItem);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         deliveryItemDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         deliveryItemDao.deleteAll();
@@ -104,6 +107,7 @@ public class DeliveryItemServiceImpl implements DeliveryItemService, Serializabl
         return new DeliveryItem();
     }
 
+    @Transactional
     @Override
     public String moveItemsToRepository(Long placeId, List<DeliveryItem> deliveryItems) {
         Repository repository = null;

@@ -5,22 +5,12 @@
  */
 package pl.pawelec.webshop.service;
 
-import java.util.List;
 import pl.pawelec.webshop.model.Address;
 
 /**
- *
  * @author mirek
  */
-public interface AddressService {
-    void create(Address address);
-    void update(Address address);
-    void delete(Address address);
-    void deleteById(Long id);
-    void deleteAll();
-    Address getOneById(Long id);
-    List<Address> getAll();
-    Long count();
-    boolean exists(Long id);
+public interface AddressService extends CrudService<Address> {
+
     Address createAndReturn(Address address);
 }

@@ -5,24 +5,14 @@
  */
 package pl.pawelec.webshop.service;
 
-import java.util.List;
-import org.springframework.dao.DataIntegrityViolationException;
-import pl.pawelec.webshop.model.Product;
 import pl.pawelec.webshop.model.Storagearea;
 
+import java.util.List;
+
 /**
- *
  * @author mirek
  */
-public interface StorageareaService {
-    void create(Storagearea storagearea);
-    void update(Storagearea storagearea);
-    void delete(Storagearea storagearea);
-    void deleteById(Long id);
-    void deleteAll();
-    Storagearea getById(Long id);
-    List<Storagearea> getAll();
-    Long count();
-    boolean exists(Long id);
+public interface StorageareaService extends CrudService<Storagearea> {
+
     List<Storagearea> getByDescription(String wholeDescriptionOrPart);
 }

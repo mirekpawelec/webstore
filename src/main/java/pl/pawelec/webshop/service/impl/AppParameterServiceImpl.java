@@ -5,8 +5,6 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,13 +12,12 @@ import pl.pawelec.webshop.model.AppParameter;
 import pl.pawelec.webshop.model.dao.AppParameterDao;
 import pl.pawelec.webshop.service.AppParameterService;
 
-/**
- *
- * @author mirek
- */
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional(readOnly = true)
-public class AppParameterServiceImpl implements AppParameterService{
+public class AppParameterServiceImpl implements AppParameterService {
 
     @Autowired
     private AppParameterDao appParameterDao;
@@ -28,7 +25,7 @@ public class AppParameterServiceImpl implements AppParameterService{
     @Transactional
     @Override
     public void create(AppParameter appParameter) {
-        appParameterDao.create(appParameter); 
+        appParameterDao.create(appParameter);
     }
 
     @Transactional
@@ -74,14 +71,14 @@ public class AppParameterServiceImpl implements AppParameterService{
     public boolean exists(Long id) {
         return appParameterDao.exists(id);
     }
-    
+
     public AppParameter getByUniqueKey(String symbol, String name) {
         return appParameterDao.getByUniqueKey(symbol, name);
     }
-    
-    public List<AppParameter> getBySymbol(String symbol){
+
+    public List<AppParameter> getBySymbol(String symbol) {
         return getAll().stream()
-                .filter(sc->sc.getSymbol().equals(symbol))
+                .filter(sc -> sc.getSymbol().equals(symbol))
                 .collect(Collectors.toList());
     }
 }

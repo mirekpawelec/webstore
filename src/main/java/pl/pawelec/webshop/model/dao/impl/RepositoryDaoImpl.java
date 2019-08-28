@@ -58,8 +58,6 @@ public class RepositoryDaoImpl extends AbstrDao<Repository> implements Repositor
             } else {
                 query = getEntityManager().createQuery(sqlQuery);
             }
-            ;
-//            System.out.println(sqlQuery);
             result = query.getResultList();
         } catch (NoResultException nre) {
             LOGGER.info("No data found!");

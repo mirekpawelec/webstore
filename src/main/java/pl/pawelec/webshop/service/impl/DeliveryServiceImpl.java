@@ -5,56 +5,60 @@
  */
 package pl.pawelec.webshop.service.impl;
 
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.webflow.execution.RequestContext;
 import pl.pawelec.webshop.exception.InvalidDeliveryException;
 import pl.pawelec.webshop.model.Delivery;
-import pl.pawelec.webshop.model.statuses.DeliveryStatus;
 import pl.pawelec.webshop.model.Storageplace;
 import pl.pawelec.webshop.model.dao.DeliveryDao;
+import pl.pawelec.webshop.model.statuses.DeliveryStatus;
 import pl.pawelec.webshop.service.DeliveryService;
 import pl.pawelec.webshop.service.StorageplaceService;
+import pl.pawelec.webshop.service.utils.TimeUtils;
 
-/**
- *
- * @author mirek
- */
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Objects;
+
 @Service
-@Transactional
-public class DeliveryServiceImpl implements DeliveryService{
-    
+@Transactional(readOnly = true)
+public class DeliveryServiceImpl implements DeliveryService {
+
     @Autowired
     private DeliveryDao deliveryDao;
-    
+
     @Autowired
     private StorageplaceService storageplaceService;
-    
+
+    @Transactional
     @Override
     public void create(Delivery delivery) {
         deliveryDao.create(delivery);
     }
 
+    @Transactional
     @Override
     public void update(Delivery delivery) {
         deliveryDao.update(delivery);
     }
 
+    @Transactional
     @Override
     public void delete(Delivery delivery) {
-        if(delivery.getStatus().equals(DeliveryStatus.OK.name())){
+        if (delivery.getStatus().equals(DeliveryStatus.OK.name())) {
             deliveryDao.delete(delivery);
         }
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         deliveryDao.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteAll() {
         deliveryDao.deleteAll();
@@ -79,7 +83,7 @@ public class DeliveryServiceImpl implements DeliveryService{
     public boolean exists(Long id) {
         return deliveryDao.exists(id);
     }
-    
+
     @Override
     public List<Delivery> getByDriver(String firstName, String lastName, String phoneNo) {
         return deliveryDao.getByDriver(firstName, lastName, phoneNo);
@@ -90,78 +94,89 @@ public class DeliveryServiceImpl implements DeliveryService{
         return deliveryDao.getByTruck(type, truckNumber, trailerOrCaravanNumber);
     }
 
+    @Transactional
     @Override
     public Delivery startProcessDelivery(String deliveryId) {
         Delivery delivery = new Delivery();
-        if(deliveryId==null){
+        if (deliveryId == null) {
             delivery = deliveryDao.startProcessDelivery();
         } else {
             delivery = deliveryDao.getOneById(Long.valueOf(deliveryId));
         }
-        if(delivery==null){
+        if (delivery == null) {
             throw new InvalidDeliveryException("It has occured an error while creating a delivery!");
         }
         return delivery;
     }
 
+    @Transactional
     @Override
     public String closeDelivery(Long id) {
-        if(deliveryDao.closeDelivery(id)){
-            return "true";
+        String result = "true";
+        Delivery deliveryToClose = deliveryDao.getOneById(id);
+        if (Objects.nonNull(deliveryToClose) && deliveryToClose.getStatus().equals(DeliveryStatus.RE.name())) {
+            deliveryToClose.setStatus(DeliveryStatus.FI.name());
+            deliveryToClose.setFinishDate(TimeUtils.getCurrentLocalDateTime());
+            deliveryDao.update(deliveryToClose);
         } else {
-            return "false";
+            result = "false";
         }
+        return result;
     }
-    
-    public Delivery setPlaceIdAccordingToPlaceNo(Delivery delivery, List<Storageplace> storageplaces){
-        storageplaces.forEach( storageplace -> {
-            if( storageplace.getPlaceNo().equals( delivery.getPlace().getPlaceNo() )){
-                delivery.getPlace().setPlaceId( storageplace.getPlaceId() );
+
+    @Override
+    public Delivery setPlaceIdAccordingToPlaceNo(Delivery delivery, List<Storageplace> storageplaces) {
+        storageplaces.forEach(storageplace -> {
+            if (storageplace.getPlaceNo().equals(delivery.getPlace().getPlaceNo())) {
+                delivery.getPlace().setPlaceId(storageplace.getPlaceId());
             }
         });
         return delivery;
     }
-    
-    public String saveDetailsDelivery(Delivery delivery){
-        try{
-            if(delivery.getPlace().getPlaceNo()!=null && !delivery.getPlace().getPlaceNo().equals("NONE")){
-                delivery.getPlace().setPlaceId( storageplaceService.getByPlaceNo( delivery.getPlace().getPlaceNo() ).getPlaceId() );
+
+    @Transactional
+    @Override
+    public String saveDetailsDelivery(Delivery delivery) {
+        try {
+            if (delivery.getPlace().getPlaceNo() != null && !delivery.getPlace().getPlaceNo().equals("NONE")) {
+                delivery.getPlace().setPlaceId(storageplaceService.getByPlaceNo(delivery.getPlace().getPlaceNo()).getPlaceId());
             }
-            if(!delivery.getStatus().equals("FI")){
+            if (!delivery.getStatus().equals("FI")) {
                 delivery.setStatus(DeliveryStatus.RE.name());
                 this.update(delivery);
             } else {
                 throw new IllegalArgumentException("It can't update closed delivery!");
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             return "false";
         }
         return "true";
     }
 
+    @Transactional
     @Override
     public void deleteByIdAndStatus(Long id, String status) {
-        if(status.equals("OK")){
-            this.deleteById(id);
+        if (status.equals("OK")) {
+            deliveryDao.deleteById(id);
         }
     }
-    
+
     @Override
     public String setWhereComeFrom(String view) {
         return view;
     }
-    
+
     @Override
     public String whatView(String view) {
         return view;
     }
 
-    public void setFlowModelAttribute(RequestContext context){
-        HttpServletRequest req = (HttpServletRequest)context.getExternalContext().getNativeRequest(); 
+    @Override
+    public void setFlowModelAttribute(RequestContext context) {
+        HttpServletRequest req = (HttpServletRequest) context.getExternalContext().getNativeRequest();
         String url = context.getFlowExecutionUrl();
         url = url.substring(url.indexOf("/", 1), url.length()) + "&";
-//        System.out.println(url);
         req.getSession().setAttribute("lastRequestUrl", url);
     }
-    
+
 }

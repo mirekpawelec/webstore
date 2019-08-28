@@ -5,22 +5,12 @@
  */
 package pl.pawelec.webshop.service;
 
-import java.util.List;
 import pl.pawelec.webshop.model.Customer;
 
 /**
- *
  * @author mirek
  */
-public interface CustomerService {
-    void create(Customer customer);
-    void update(Customer customer);
-    void delete(Customer customer);
-    void deleteById(Long id);
-    void deleteAll();
-    Customer getOneById(Long id);
-    List<Customer> getAll();
-    Long count();
-    boolean exists(Long id);
+public interface CustomerService extends CrudService<Customer> {
+
     Customer createAndReturn(Customer customer);
 }

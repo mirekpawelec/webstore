@@ -95,21 +95,4 @@ public class DeliveryDaoImpl extends AbstrDao<Delivery> implements DeliveryDao {
     public Delivery startProcessDelivery() {
         return createAndGetDelivery(new Delivery(new Storageplace(getIdDefaultPlace())));
     }
-
-    public boolean closeDelivery(Long id) {
-        try {
-            Delivery deliveryToClosing = getOneById(id);
-            if (deliveryToClosing.getStatus().equals(DeliveryStatus.RE.name())) {
-                deliveryToClosing.setStatus(DeliveryStatus.FI.name());
-                deliveryToClosing.setFinishDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-                this.update(deliveryToClosing);
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-
 }

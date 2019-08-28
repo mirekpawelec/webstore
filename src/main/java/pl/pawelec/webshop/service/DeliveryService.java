@@ -14,16 +14,7 @@ import pl.pawelec.webshop.model.Storageplace;
  *
  * @author mirek
  */
-public interface DeliveryService {
-    void create(Delivery delivery);
-    void update(Delivery delivery);
-    void delete(Delivery delivery);
-    void deleteById(Long id);
-    void deleteAll();
-    Delivery getOneById(Long id);
-    List<Delivery> getAll();
-    Long count();
-    boolean exists(Long id);
+public interface DeliveryService extends CrudService<Delivery> {
     List<Delivery> getByDriver(String firstName, String lastName, String phoneNo);
     List<Delivery> getByTruck(String type, String truckNumber, String trailerOrCaravanNumber);
     Delivery startProcessDelivery(String deliveryId);
