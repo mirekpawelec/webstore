@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.pawelec.webshop.config.WebshopApplication;
-import pl.pawelec.webshop.exception.NoParametersKeyFoundException;
+import pl.pawelec.webshop.service.exception.NoParametersKeyFoundException;
 import pl.pawelec.webshop.model.AppParameter;
 import pl.pawelec.webshop.service.AppParameterService;
 

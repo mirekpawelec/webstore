@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.pawelec.webshop.model.Product;
-import pl.pawelec.webshop.model.statuses.ProductStatus;
+import pl.pawelec.webshop.model.status.ProductStatus;
 import pl.pawelec.webshop.service.ProductService;
-import pl.pawelec.webshop.utils.AtributesModel;
-import pl.pawelec.webshop.validator.ProductValidator;
+import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.service.validator.ProductValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;

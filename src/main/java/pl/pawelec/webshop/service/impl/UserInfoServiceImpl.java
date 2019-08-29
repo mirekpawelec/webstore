@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.UserDetailsAdapter;
 import pl.pawelec.webshop.model.UserInfo;
-import pl.pawelec.webshop.model.dao.UserInfoDao;
-import pl.pawelec.webshop.model.statuses.UserStatus;
+import pl.pawelec.webshop.repository.UserInfoRepository;
+import pl.pawelec.webshop.model.status.UserStatus;
 import pl.pawelec.webshop.service.UserInfoService;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserInfoServiceImpl.class);
 
     @Autowired
-    private UserInfoDao userInfoDao;
+    private UserInfoRepository userInfoDao;
 
     @Transactional
     @Override

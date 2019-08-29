@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.ClientMessage;
-import pl.pawelec.webshop.model.dao.ClientMessageDao;
+import pl.pawelec.webshop.repository.ClientMessageRepository;
 import pl.pawelec.webshop.service.ClientMessageService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class ClientMessageServiceImpl implements ClientMessageService {
 
     @Autowired
-    private ClientMessageDao clientMessageDao;
+    private ClientMessageRepository clientMessageDao;
 
     @Transactional
     @Override

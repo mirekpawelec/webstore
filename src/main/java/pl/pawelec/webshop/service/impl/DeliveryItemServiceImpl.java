@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.DeliveryItem;
 import pl.pawelec.webshop.model.LoadUnit;
-import pl.pawelec.webshop.model.dao.DeliveryItemDao;
-import pl.pawelec.webshop.model.statuses.ProductState;
-import pl.pawelec.webshop.model.statuses.ProductStatus;
-import pl.pawelec.webshop.model.statuses.QualityStatus;
+import pl.pawelec.webshop.repository.DeliveryItemDao;
+import pl.pawelec.webshop.model.status.ProductState;
+import pl.pawelec.webshop.model.status.ProductStatus;
+import pl.pawelec.webshop.model.status.QualityStatus;
 import pl.pawelec.webshop.service.DeliveryItemService;
 import pl.pawelec.webshop.service.RepositoryService;
 

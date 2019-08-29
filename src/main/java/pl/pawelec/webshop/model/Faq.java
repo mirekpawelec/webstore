@@ -18,8 +18,8 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
-import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
-import pl.pawelec.webshop.model.statuses.FaqStatus;
+import pl.pawelec.webshop.service.converter.TimestampToLocalDateTimeConverter;
+import pl.pawelec.webshop.model.status.FaqStatus;
 
 /**
  *

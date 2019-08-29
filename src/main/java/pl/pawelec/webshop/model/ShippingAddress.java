@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -26,8 +25,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
-import pl.pawelec.webshop.converter.DateToLocalDateConverter;
-import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
+import pl.pawelec.webshop.service.converter.DateToLocalDateConverter;
+import pl.pawelec.webshop.service.converter.TimestampToLocalDateTimeConverter;
 
 /**
  *

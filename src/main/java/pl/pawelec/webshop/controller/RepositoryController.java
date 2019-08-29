@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.pawelec.webshop.model.LoadUnit;
 import pl.pawelec.webshop.service.RepositoryService;
-import pl.pawelec.webshop.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.AtributesModel;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

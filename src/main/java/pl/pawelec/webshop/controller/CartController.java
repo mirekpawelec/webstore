@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.pawelec.webshop.service.CartService;
-import pl.pawelec.webshop.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.AtributesModel;
 
 /**
  *

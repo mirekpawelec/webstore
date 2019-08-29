@@ -21,8 +21,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
-import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
-import pl.pawelec.webshop.model.statuses.OrderStatus;
+import pl.pawelec.webshop.service.converter.TimestampToLocalDateTimeConverter;
+import pl.pawelec.webshop.model.status.OrderStatus;
 
 /**
  *

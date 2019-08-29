@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.Cart;
-import pl.pawelec.webshop.model.dao.CartDao;
+import pl.pawelec.webshop.repository.CartRepository;
 import pl.pawelec.webshop.service.CartService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
 
     @Autowired
-    private CartDao cartDao;
+    private CartRepository cartDao;
 
     @Transactional
     @Override

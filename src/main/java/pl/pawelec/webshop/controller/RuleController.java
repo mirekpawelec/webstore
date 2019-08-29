@@ -14,11 +14,11 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.pawelec.webshop.model.Rule;
-import pl.pawelec.webshop.model.statuses.FaqStatus;
-import pl.pawelec.webshop.model.statuses.RuleStatus;
+import pl.pawelec.webshop.model.status.FaqStatus;
+import pl.pawelec.webshop.model.status.RuleStatus;
 import pl.pawelec.webshop.service.RuleService;
-import pl.pawelec.webshop.utils.AtributesModel;
-import pl.pawelec.webshop.validator.RuleValidator;
+import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.service.validator.RuleValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;

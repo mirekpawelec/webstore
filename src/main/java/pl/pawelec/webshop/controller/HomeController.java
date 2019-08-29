@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import pl.pawelec.webshop.model.ClientMessage;
 import pl.pawelec.webshop.model.ProductFilter;
 import pl.pawelec.webshop.model.Product;
-import pl.pawelec.webshop.model.statuses.ProductStatus;
+import pl.pawelec.webshop.model.status.ProductStatus;
 import pl.pawelec.webshop.service.CartService;
 import pl.pawelec.webshop.service.ClientMessageService;
 import pl.pawelec.webshop.service.ProductService;
-import pl.pawelec.webshop.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.AtributesModel;
 import pl.pawelec.webshop.service.AppParameterService;
 
 /**

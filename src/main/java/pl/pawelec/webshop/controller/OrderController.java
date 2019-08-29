@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.pawelec.webshop.model.Order;
 import pl.pawelec.webshop.service.OrderService;
 import pl.pawelec.webshop.service.UserInfoService;
-import pl.pawelec.webshop.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.AtributesModel;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

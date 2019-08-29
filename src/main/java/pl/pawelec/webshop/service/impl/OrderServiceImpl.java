@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.webflow.execution.RequestContext;
 import pl.pawelec.webshop.model.*;
-import pl.pawelec.webshop.model.dao.*;
-import pl.pawelec.webshop.model.statuses.CartStatus;
-import pl.pawelec.webshop.model.statuses.OrderStatus;
+import pl.pawelec.webshop.model.status.CartStatus;
+import pl.pawelec.webshop.model.status.OrderStatus;
+import pl.pawelec.webshop.repository.*;
 import pl.pawelec.webshop.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,31 +29,31 @@ public class OrderServiceImpl implements OrderService {
     private final static String PAYMENT_METHOD_SYMBOL_CLASS = "payment_method";
 
     @Autowired
-    private OrderDao orderDao;
+    private OrderRepository orderDao;
 
     @Autowired
-    private CartDao cartDao;
+    private CartRepository cartDao;
 
     @Autowired
-    private CartItemDao cartItemDao;
+    private CartItemRepository cartItemDao;
 
     @Autowired
-    private AddressDao addressDao;
+    private AddressRepository addressDao;
 
     @Autowired
-    private CustomerDao customerDao;
+    private CustomerRepository customerDao;
 
     @Autowired
-    private ShippingAddressDao shippingAddressDao;
+    private ShippingAddressRepository shippingAddressDao;
 
     @Autowired
-    private ShippingDetailsDao shippingDetailsDao;
+    private ShippingDetailsRepository shippingDetailsDao;
 
     @Autowired
-    private AppParameterDao appParameterDao;
+    private AppParameterRepository appParameterDao;
 
     @Autowired
-    private UserInfoDao userInfoDao;
+    private UserInfoRepository userInfoDao;
 
     @Transactional
     @Override

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.pawelec.webshop.model.Delivery;
-import pl.pawelec.webshop.model.statuses.DeliveryStatus;
+import pl.pawelec.webshop.model.status.DeliveryStatus;
 import pl.pawelec.webshop.service.DeliveryService;
-import pl.pawelec.webshop.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.AtributesModel;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

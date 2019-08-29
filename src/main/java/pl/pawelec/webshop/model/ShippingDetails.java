@@ -24,7 +24,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
-import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
+import pl.pawelec.webshop.service.converter.TimestampToLocalDateTimeConverter;
 
 /**
  *

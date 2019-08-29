@@ -11,7 +11,7 @@
     
     <action-state id="createOrder">
         <evaluate expression="cartServiceImpl.getOneById(requestParameters.cartId)" result="order.cart"/>
-        <transition to="invalidCustomerOrderWarning" on-exception="pl.pawelec.webshop.exception.InvalidCustomerOrderException"/>
+        <transition to="invalidCustomerOrderWarning" on-exception="pl.pawelec.webshop.service.exception.InvalidCustomerOrderException"/>
         <transition to="collectCustomerInfo">
             <evaluate expression="orderServiceImpl.checkUserAndFillInCustomer(order, customer)" />
         </transition>

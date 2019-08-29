@@ -6,8 +6,8 @@
 package pl.pawelec.webshop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
-import pl.pawelec.webshop.model.statuses.CartStatus;
+import pl.pawelec.webshop.service.converter.TimestampToLocalDateTimeConverter;
+import pl.pawelec.webshop.model.status.CartStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;

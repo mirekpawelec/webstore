@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.LoadUnit;
-import pl.pawelec.webshop.model.dao.RepositoryDao;
+import pl.pawelec.webshop.repository.LoadUnitRepository;
 import pl.pawelec.webshop.service.RepositoryService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class RepositoryServiceImpl implements RepositoryService {
 
     @Autowired
-    private RepositoryDao repositoryDao;
+    private LoadUnitRepository repositoryDao;
 
     @Transactional
     @Override

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.AppParameter;
-import pl.pawelec.webshop.model.dao.AppParameterDao;
+import pl.pawelec.webshop.repository.AppParameterRepository;
 import pl.pawelec.webshop.service.AppParameterService;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class AppParameterServiceImpl implements AppParameterService {
 
     @Autowired
-    private AppParameterDao appParameterDao;
+    private AppParameterRepository appParameterDao;
 
     @Transactional
     @Override

@@ -18,11 +18,11 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.pawelec.webshop.model.UserInfo;
-import pl.pawelec.webshop.model.statuses.UserRole;
-import pl.pawelec.webshop.model.statuses.UserStatus;
+import pl.pawelec.webshop.model.role.UserRole;
+import pl.pawelec.webshop.model.status.UserStatus;
 import pl.pawelec.webshop.service.UserInfoService;
-import pl.pawelec.webshop.utils.AtributesModel;
-import pl.pawelec.webshop.validator.UserInfoValidator;
+import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.service.validator.UserInfoValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.Product;
-import pl.pawelec.webshop.model.dao.ProductDao;
+import pl.pawelec.webshop.repository.ProductRepository;
 import pl.pawelec.webshop.service.ProductService;
 
 import java.io.Serializable;
@@ -22,7 +22,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService, Serializable {
 
     @Autowired
-    private ProductDao productDao;
+    private ProductRepository productDao;
 
     @Transactional
     @Override

@@ -20,11 +20,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.pawelec.webshop.config.WebshopApplication;
-import pl.pawelec.webshop.converter.CartNotFoundException;
+import pl.pawelec.webshop.service.converter.CartNotFoundException;
 import pl.pawelec.webshop.model.Cart;
 import pl.pawelec.webshop.model.Product;
-import pl.pawelec.webshop.model.statuses.CartStatus;
-import pl.pawelec.webshop.model.statuses.ProductStatus;
+import pl.pawelec.webshop.model.status.CartStatus;
+import pl.pawelec.webshop.model.status.ProductStatus;
 import pl.pawelec.webshop.service.CartService;
 import pl.pawelec.webshop.service.ProductService;
 

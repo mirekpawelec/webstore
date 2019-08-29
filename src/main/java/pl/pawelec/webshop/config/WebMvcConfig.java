@@ -14,10 +14,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.util.UrlPathHelper;
-import pl.pawelec.webshop.converter.CustomerIdToCustomerConverter;
-import pl.pawelec.webshop.converter.DeliveryIdToDeliveryConverter;
-import pl.pawelec.webshop.converter.ProductIdToProductConverter;
-import pl.pawelec.webshop.converter.RepositoryConverter;
+import pl.pawelec.webshop.service.converter.CustomerIdToCustomerConverter;
+import pl.pawelec.webshop.service.converter.DeliveryIdToDeliveryConverter;
+import pl.pawelec.webshop.service.converter.ProductIdToProductConverter;
+import pl.pawelec.webshop.service.converter.RepositoryConverter;
 import pl.pawelec.webshop.interceptor.PerformanceMonitorInterceptor;
 
 import java.util.Locale;

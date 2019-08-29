@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.Storagearea;
-import pl.pawelec.webshop.model.dao.StorageareaDao;
+import pl.pawelec.webshop.repository.StorageareaRepository;
 import pl.pawelec.webshop.service.StorageareaService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class StorageareaServiceImpl implements StorageareaService {
 
     @Autowired
-    private StorageareaDao storageareaDao;
+    private StorageareaRepository storageareaDao;
 
     @Transactional
     @Override

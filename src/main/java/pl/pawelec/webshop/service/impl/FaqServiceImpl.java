@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.Faq;
-import pl.pawelec.webshop.model.dao.FaqDao;
+import pl.pawelec.webshop.repository.FaqRepository;
 import pl.pawelec.webshop.service.FaqService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class FaqServiceImpl implements FaqService {
 
     @Autowired
-    private FaqDao faqDao;
+    private FaqRepository faqDao;
 
     @Transactional
     @Override

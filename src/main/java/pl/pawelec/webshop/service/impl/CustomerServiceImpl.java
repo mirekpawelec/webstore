@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.Customer;
-import pl.pawelec.webshop.model.dao.CustomerDao;
+import pl.pawelec.webshop.repository.CustomerRepository;
 import pl.pawelec.webshop.service.CustomerService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
-    private CustomerDao customerDao;
+    private CustomerRepository customerDao;
 
     @Transactional
     @Override

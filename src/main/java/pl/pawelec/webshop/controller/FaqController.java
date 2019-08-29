@@ -15,10 +15,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.pawelec.webshop.model.Faq;
-import pl.pawelec.webshop.model.statuses.FaqStatus;
+import pl.pawelec.webshop.model.status.FaqStatus;
 import pl.pawelec.webshop.service.FaqService;
-import pl.pawelec.webshop.utils.AtributesModel;
-import pl.pawelec.webshop.validator.FaqValidator;
+import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.service.validator.FaqValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;

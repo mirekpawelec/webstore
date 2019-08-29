@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import pl.pawelec.webshop.config.WebshopApplication;
 import pl.pawelec.webshop.model.Product;
-import pl.pawelec.webshop.model.statuses.ProductStatus;
+import pl.pawelec.webshop.model.status.ProductStatus;
 import pl.pawelec.webshop.service.ProductService;
 
 import java.math.BigDecimal;

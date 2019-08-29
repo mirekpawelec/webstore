@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.webflow.execution.RequestContext;
-import pl.pawelec.webshop.exception.InvalidDeliveryException;
+import pl.pawelec.webshop.service.exception.InvalidDeliveryException;
 import pl.pawelec.webshop.model.Delivery;
 import pl.pawelec.webshop.model.Storageplace;
-import pl.pawelec.webshop.model.dao.DeliveryDao;
-import pl.pawelec.webshop.model.statuses.DeliveryStatus;
+import pl.pawelec.webshop.repository.DeliveryRepository;
+import pl.pawelec.webshop.model.status.DeliveryStatus;
 import pl.pawelec.webshop.service.DeliveryService;
 import pl.pawelec.webshop.service.StorageplaceService;
 import pl.pawelec.webshop.service.utils.TimeUtils;
@@ -27,7 +27,7 @@ import java.util.Objects;
 public class DeliveryServiceImpl implements DeliveryService {
 
     @Autowired
-    private DeliveryDao deliveryDao;
+    private DeliveryRepository deliveryDao;
 
     @Autowired
     private StorageplaceService storageplaceService;

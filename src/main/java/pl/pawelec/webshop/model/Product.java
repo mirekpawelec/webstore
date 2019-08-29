@@ -31,9 +31,9 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
-import pl.pawelec.webshop.converter.TimestampToLocalDateTimeConverter;
-import pl.pawelec.webshop.model.statuses.ProductStatus;
-import pl.pawelec.webshop.validator.ProductNo;
+import pl.pawelec.webshop.service.converter.TimestampToLocalDateTimeConverter;
+import pl.pawelec.webshop.model.status.ProductStatus;
+import pl.pawelec.webshop.service.validator.ProductNo;
 
 /**
  *

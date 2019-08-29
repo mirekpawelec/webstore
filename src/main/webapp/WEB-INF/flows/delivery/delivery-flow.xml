@@ -9,7 +9,7 @@
     
     <action-state id="createDelivery">
         <evaluate expression="deliveryServiceImpl.startProcessDelivery(requestParameters.deliveryId)" result="delivery" />
-        <transition to="displayError" on-exception="pl.pawelec.webshop.exception.InvalidDeliveryException" />
+        <transition to="displayError" on-exception="pl.pawelec.webshop.service.exception.InvalidDeliveryException" />
         <transition to="addDetailsToDelivery">
             <evaluate expression="storageplaceServiceImpl.getByType('WE')" result="flowScope.places" />
         </transition>

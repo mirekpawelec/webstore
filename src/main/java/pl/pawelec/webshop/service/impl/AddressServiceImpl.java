@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.Address;
-import pl.pawelec.webshop.model.dao.AddressDao;
+import pl.pawelec.webshop.repository.AddressRepository;
 import pl.pawelec.webshop.service.AddressService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class AddressServiceImpl implements AddressService {
 
     @Autowired
-    private AddressDao addressDao;
+    private AddressRepository addressDao;
 
     @Transactional
     @Override

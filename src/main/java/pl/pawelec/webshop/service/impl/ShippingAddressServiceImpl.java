@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.ShippingAddress;
-import pl.pawelec.webshop.model.dao.ShippingAddressDao;
+import pl.pawelec.webshop.repository.ShippingAddressRepository;
 import pl.pawelec.webshop.service.ShippingAddressService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class ShippingAddressServiceImpl implements ShippingAddressService {
 
     @Autowired
-    private ShippingAddressDao shippingDetailDao;
+    private ShippingAddressRepository shippingDetailDao;
 
     @Transactional
     @Override

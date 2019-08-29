@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.Rule;
-import pl.pawelec.webshop.model.dao.RuleDao;
+import pl.pawelec.webshop.repository.RuleRepository;
 import pl.pawelec.webshop.service.RuleService;
 
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class RuleServiceImpl implements RuleService {
 
     @Autowired
-    private RuleDao ruleDao;
+    private RuleRepository ruleDao;
 
     @Transactional
     @Override

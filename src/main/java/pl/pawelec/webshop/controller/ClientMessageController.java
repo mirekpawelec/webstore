@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.pawelec.webshop.model.ClientMessage;
-import pl.pawelec.webshop.model.statuses.MessageStatus;
+import pl.pawelec.webshop.model.status.MessageStatus;
 import pl.pawelec.webshop.service.ClientMessageService;
-import pl.pawelec.webshop.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.AtributesModel;
 
 import javax.servlet.http.HttpServletRequest;
 
