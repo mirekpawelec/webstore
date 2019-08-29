@@ -51,7 +51,9 @@ public abstract class AbstrRepository<T extends Object> implements BaseCrudRepos
 
     public void deleteById(Serializable id) {
         T deleteItem = find(id);
-        if (deleteItem != null) getEntityManager().remove(deleteItem);
+        if (deleteItem != null) {
+            getEntityManager().remove(deleteItem);
+        }
     }
 
     public void deleteAll() {

@@ -140,6 +140,7 @@ public class AppParameter implements Serializable{
         hash = 13 * hash + Objects.hashCode(this.symbol);
         hash = 13 * hash + Objects.hashCode(this.name);
         hash = 13 * hash + Objects.hashCode(this.value);
+        hash = 13 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -162,6 +163,9 @@ public class AppParameter implements Serializable{
             return false;
         }
         if (!Objects.equals(this.value, other.value)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
             return false;
         }
         return true;

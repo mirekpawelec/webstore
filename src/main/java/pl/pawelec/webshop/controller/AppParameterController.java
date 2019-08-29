@@ -15,110 +15,141 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.pawelec.webshop.controller.attributes.AlertAttribute;
+import pl.pawelec.webshop.controller.attributes.CrudAttribute;
+import pl.pawelec.webshop.controller.utils.AtributesModel;
 import pl.pawelec.webshop.model.AppParameter;
 import pl.pawelec.webshop.service.AppParameterService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
 import pl.pawelec.webshop.service.validator.AppParameterValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
+import java.util.Objects;
 
-/**
- *
- * @author mirek
- */
 @SessionAttributes(names = {"jspFile", "updateInfo"})
 @Controller
 @RequestMapping("admin/parameters")
 public class AppParameterController {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AppParameterController.class);
+
     @Autowired
     private AppParameterService appParameterService;
     @Autowired
     private AppParameterValidator appParameterValidator;
 
-    
+
     @RequestMapping
-    public String getAllAppParameters(Model model, HttpServletRequest request){
+    public String getAllAppParameters(Model model, HttpServletRequest request) {
+
         model.addAttribute("allParameters", appParameterService.getAll());
         model.addAttribute("jspFile", "appParameters");
         AtributesModel.addGlobalAtributeToModel(model, request);
+
         return "appParameters";
     }
-    
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addAppParameter(Model model, HttpServletRequest request){
+    public String addAppParameter(Model model, HttpServletRequest request) {
+
         model.addAttribute("newParameterForm", new AppParameter());
         model.addAttribute("jspFile", "addAppParameter");
         AtributesModel.addGlobalAtributeToModel(model, request);
+
         return "addAppParameter";
     }
-    
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddAppParameter(@ModelAttribute("newParameterForm") @Valid AppParameter appParameterToBeAdd, BindingResult result,
-                                  Model model, HttpServletRequest request, final RedirectAttributes redirectAttributes ){
-        if(result.hasErrors()){
+    public String processAddAppParameter(@ModelAttribute("newParameterForm") @Valid AppParameter appParameterToBeAdd,
+                                         BindingResult result, Model model, HttpServletRequest request,
+                                         final RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
             AtributesModel.addGlobalAtributeToModel(model, request);
             return "addAppParameter";
         }
+
         String[] suppresedFields = result.getSuppressedFields();
-        if(suppresedFields.length > 0){
-            throw new RuntimeException("It has occurred an attempt bind the illegal fields:" + StringUtils.arrayToCommaDelimitedString(suppresedFields));
+        if (suppresedFields.length > 0) {
+            throw new RuntimeException(String.format("It has occurred an attempt bind the illegal fields: %s",
+                    StringUtils.arrayToCommaDelimitedString(suppresedFields)));
         }
-        LOGGER.info("Save... ["+appParameterToBeAdd+']');
         appParameterService.create(appParameterToBeAdd);
-        redirectAttributes.addFlashAttribute("css", "success");
-        redirectAttributes.addFlashAttribute("create", true);
-        redirectAttributes.addFlashAttribute("createInfo", appParameterToBeAdd.getSymbol()+" - "+appParameterToBeAdd.getName());
+
+        addRedirectAttrbutes(redirectAttributes, AlertAttribute.SUCCESS, CrudAttribute.CREATE, true,
+                prepareFullAppParamName(appParameterToBeAdd.getSymbol(), appParameterToBeAdd.getName()));
+
         return "redirect:/admin/parameters";
     }
-    
+
     @RequestMapping(value = "/{id}/update", method = RequestMethod.GET)
-    public String updateAppParameter(@PathVariable("id") String appParameterId, Model model, HttpServletRequest request){
+    public String updateAppParameter(@PathVariable("id") String appParameterId, Model model, HttpServletRequest request) {
         AppParameter appParameter = appParameterService.getOneById(Long.valueOf(appParameterId));
+
         model.addAttribute("updateParameterForm", appParameter);
-        model.addAttribute("updateInfo", appParameter.getSymbol()+" - "+appParameter.getName());
+        model.addAttribute("updateInfo", appParameter.getSymbol() + " - " + appParameter.getName());
         model.addAttribute("jspFile", "updateAppParameter");
         AtributesModel.addGlobalAtributeToModel(model, request);
-        return "updateAppParameter"; 
+
+        return "updateAppParameter";
     }
-    
+
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String processUpdateAppParameter(@ModelAttribute("updateParameterForm") @Valid AppParameter appParameterToBeUpdate, BindingResult result,
-                                     Model model, HttpServletRequest request, final RedirectAttributes redirectAttributes){
-        if(result.hasErrors()){
+    public String processUpdateAppParameter(@ModelAttribute("updateParameterForm") @Valid AppParameter appParameterToBeUpdate,
+                                            BindingResult result, Model model, HttpServletRequest request,
+                                            final RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
             AtributesModel.addGlobalAtributeToModel(model, request);
             model.addAttribute("jspFile", "updateAppParameter");
             return "updateAppParameter";
         }
-        appParameterToBeUpdate.setLastModificationDate(LocalDateTime.now());
-        LOGGER.info("Save... ["+appParameterToBeUpdate+']');
-        appParameterService.update(appParameterToBeUpdate);
-        redirectAttributes.addFlashAttribute("css", "success");
-        redirectAttributes.addFlashAttribute("update", true);
-        redirectAttributes.addFlashAttribute("updateInfo", appParameterToBeUpdate.getSymbol()+" - "+appParameterToBeUpdate.getName());
+
+        String fullAppParamName = prepareFullAppParamName(appParameterToBeUpdate.getSymbol(), appParameterToBeUpdate.getName());
+        if(Objects.nonNull(appParameterService.getOneById(appParameterToBeUpdate.getParameterId()))) {
+            appParameterService.update(appParameterToBeUpdate);
+            addRedirectAttrbutes(redirectAttributes, AlertAttribute.SUCCESS, CrudAttribute.UPDATE, true, fullAppParamName);
+        } else {
+            addRedirectAttrbutes(redirectAttributes, AlertAttribute.DANGER, CrudAttribute.UPDATE, false, fullAppParamName);
+        }
+
         return "redirect:/admin/parameters";
     }
-    
+
     @RequestMapping("/{id}/delete")
-    public String deleteAppParameter(@PathVariable("id") String appParameterId, final RedirectAttributes redirectAttributes){
+    public String deleteAppParameter(@PathVariable("id") String appParameterId, final RedirectAttributes redirectAttributes) {
         AppParameter appParameter = appParameterService.getOneById(Long.valueOf(appParameterId));
-        appParameterService.delete(appParameter);
-        redirectAttributes.addFlashAttribute("css", "danger");
-        redirectAttributes.addFlashAttribute("delete", true);
-        redirectAttributes.addFlashAttribute("deleteInfo", appParameter.getSymbol()+" - "+appParameter.getName());
+
+        if(Objects.nonNull(appParameter)) {
+            appParameterService.delete(appParameter);
+            addRedirectAttrbutes(redirectAttributes, AlertAttribute.SUCCESS, CrudAttribute.DELETE, true,
+                    prepareFullAppParamName(appParameter.getSymbol(), appParameter.getName()));
+        } else {
+            addRedirectAttrbutes(redirectAttributes, AlertAttribute.DANGER, CrudAttribute.DELETE, false, appParameterId);
+        }
+
         return "redirect:/admin/parameters";
     }
- 
+
     @InitBinder(value = {"newParameterForm"})
-    public void addAppParameterBinder(WebDataBinder webDataBinder){
+    public void addAppParameterBinder(WebDataBinder webDataBinder) {
         webDataBinder.setDisallowedFields("parameterId", "lastModificationDate", "createDate");
         webDataBinder.setValidator(appParameterValidator);
     }
-    
+
     @InitBinder(value = {"updateParameterForm"})
-    public void updateAppParameterBinder(WebDataBinder webDataBinder){
+    public void updateAppParameterBinder(WebDataBinder webDataBinder) {
         webDataBinder.setValidator(appParameterValidator);
+    }
+
+    private void addRedirectAttrbutes(RedirectAttributes redirectAttributes, AlertAttribute alertAttribute,
+                                      CrudAttribute crudAttribute, boolean isSuccess, String message) {
+        redirectAttributes.addFlashAttribute("alertType", alertAttribute.getNameAsLowerCase());
+        redirectAttributes.addFlashAttribute(
+                String.format("%s%sInfo", crudAttribute.getNameAsLowerCase(), isSuccess? "Success": "Error"),
+                message
+        );
+    }
+
+    private String prepareFullAppParamName(String symbol, String name) {
+        return String.format("%s - %s", symbol, name);
     }
 }

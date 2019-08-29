@@ -10,9 +10,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <spring:message code="appParameters.pageHeader.label" var="headerLbl" />
-<spring:message code="appParameters.table.processResult.create.message" arguments="${createInfo}" var="createMessage"/>
-<spring:message code="appParameters.table.processResult.update.message" arguments="${updateInfo}" var="updateMessage"/>
-<spring:message code="appParameters.table.processResult.delete.message" arguments="${deleteInfo}" var="deleteMessage"/>
+<spring:message code="appParameters.table.processResult.create.success.message" arguments="${createSuccessInfo}" var="createSuccessMsg"/>
+<spring:message code="appParameters.table.processResult.update.success.message" arguments="${updateSuccessInfo}" var="updateSuccessMsg"/>
+<spring:message code="appParameters.table.processResult.delete.success.message" arguments="${deleteSuccessInfo}" var="deleteSuccessMsg"/>
+<spring:message code="appParameters.table.processResult.update.error.message" arguments="${updateErrorInfo}" var="updateErrorMsg"/>
+<spring:message code="appParameters.table.processResult.delete.error.message" arguments="${deleteErrorInfo}" var="deleteErrorMsg"/>
 <spring:message code="appParameters.table.symbol.label" var="tabSymbolLbl"/>
 <spring:message code="appParameters.table.name.label" var="tabNameLbl"/>
 <spring:message code="appParameters.table.value.label" var="tabValueLbl"/>
@@ -36,26 +38,28 @@
                 </div>
             </div>
             <div class="row">
-                <c:choose>
-                    <c:when test="${create}">
-                        <div class="alert alert-${css} alert-dismissable" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong> ${createMessage} </strong>
-                        </div>  
-                    </c:when>
-                    <c:when test="${update}">
-                        <div class="alert alert-${css} alert-dismissable" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong> ${updateMessage} </strong>
-                        </div>  
-                    </c:when>
-                    <c:when test="${delete}">
-                        <div class="alert alert-${css} alert-dismissable" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong> ${deleteMessage} </strong>
-                        </div>                        
-                    </c:when>
-                </c:choose>
+               <div class="alert alert-${alertType} alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <c:choose>
+                        <c:when test="${not empty createSuccessInfo}">
+                            <strong> ${createSuccessMsg} </strong>
+                        </c:when>
+                        <c:when test="${not empty updateSuccessInfo}">
+                            <strong> ${updateSuccessMsg} </strong>
+                        </c:when>
+                        <c:when test="${not empty deleteSuccessInfo}">
+                            <strong> ${deleteSuccessMsg} </strong>
+                        </c:when>
+                        <c:when test="${not empty updateErrorInfo}">
+                            <strong> ${updateErrorMsg} </strong>
+                        </c:when>
+                        <c:when test="${not empty deleteErrorInfo}">
+                            <strong> ${deleteErrorMsg} </strong>
+                        </c:when>
+                    </c:choose>
+               </div>
             </div>
             <div class="row">
                 <div class="table-responsive text-left">
