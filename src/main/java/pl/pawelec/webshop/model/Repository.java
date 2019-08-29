@@ -16,8 +16,8 @@ import java.util.Objects;
  * @author mirek
  */
 @Entity
-@Table(name = "repository")
-public class Repository implements Serializable {
+@Table(name = "load_unit")
+public class LoadUnit implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,7 +59,7 @@ public class Repository implements Serializable {
     private LocalDateTime createDate;
 
 
-    public Repository() {
+    public LoadUnit() {
         product = new Product();
         place = new Storageplace();
     }
@@ -165,7 +165,7 @@ public class Repository implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Repository other = (Repository) obj;
+        final LoadUnit other = (LoadUnit) obj;
         if (!Objects.equals(this.loadunitId, other.loadunitId)) {
             return false;
         }

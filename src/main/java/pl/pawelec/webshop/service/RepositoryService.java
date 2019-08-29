@@ -5,20 +5,20 @@
  */
 package pl.pawelec.webshop.service;
 
-import pl.pawelec.webshop.model.Repository;
+import pl.pawelec.webshop.model.LoadUnit;
 
 import java.util.List;
 
 /**
  * @author mirek
  */
-public interface RepositoryService extends CrudService<Repository> {
+public interface RepositoryService extends CrudService<LoadUnit> {
 
-    Repository getByLoadunitNo(String loadunitNo);
+    LoadUnit getByLoadunitNo(String loadunitNo);
 
-    List<Repository> getByStatus(String status);
+    List<LoadUnit> getByStatus(String status);
 
-    List<Repository> getByProductNo(String productNo);
+    List<LoadUnit> getByProductNo(String productNo);
 
-    List<Repository> getByOwnCriteria(String sqlQuery, String modificationDate, String createDate);
+    List<LoadUnit> getByOwnCriteria(String sqlQuery, String modificationDate, String createDate);
 }

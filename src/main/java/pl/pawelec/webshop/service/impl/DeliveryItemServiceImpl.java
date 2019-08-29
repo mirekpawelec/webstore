@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.DeliveryItem;
-import pl.pawelec.webshop.model.Repository;
+import pl.pawelec.webshop.model.LoadUnit;
 import pl.pawelec.webshop.model.dao.DeliveryItemDao;
 import pl.pawelec.webshop.model.statuses.ProductState;
 import pl.pawelec.webshop.model.statuses.ProductStatus;
@@ -110,10 +110,10 @@ public class DeliveryItemServiceImpl implements DeliveryItemService, Serializabl
     @Transactional
     @Override
     public String moveItemsToRepository(Long placeId, List<DeliveryItem> deliveryItems) {
-        Repository repository = null;
+        LoadUnit repository = null;
         try {
             for (DeliveryItem item : deliveryItems) {
-                repository = new Repository();
+                repository = new LoadUnit();
                 repository.setLoadunitNo(item.getLoadunitNo());
                 repository.getProduct().setProductId(item.getProduct().getProductId());
                 repository.setQuantity(item.getQuantity());

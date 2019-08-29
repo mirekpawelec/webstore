@@ -8,7 +8,7 @@ package pl.pawelec.webshop.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.pawelec.webshop.model.Repository;
+import pl.pawelec.webshop.model.LoadUnit;
 import pl.pawelec.webshop.model.dao.RepositoryDao;
 import pl.pawelec.webshop.service.RepositoryService;
 
@@ -23,19 +23,19 @@ public class RepositoryServiceImpl implements RepositoryService {
 
     @Transactional
     @Override
-    public void create(Repository repository) {
+    public void create(LoadUnit repository) {
         repositoryDao.create(repository);
     }
 
     @Transactional
     @Override
-    public void update(Repository repository) {
+    public void update(LoadUnit repository) {
         repositoryDao.update(repository);
     }
 
     @Transactional
     @Override
-    public void delete(Repository repository) {
+    public void delete(LoadUnit repository) {
         repositoryDao.delete(repository);
     }
 
@@ -52,12 +52,12 @@ public class RepositoryServiceImpl implements RepositoryService {
     }
 
     @Override
-    public Repository getOneById(Long id) {
+    public LoadUnit getOneById(Long id) {
         return repositoryDao.getOneById(id);
     }
 
     @Override
-    public List<Repository> getAll() {
+    public List<LoadUnit> getAll() {
         return repositoryDao.getAll();
     }
 
@@ -72,22 +72,22 @@ public class RepositoryServiceImpl implements RepositoryService {
     }
 
     @Override
-    public Repository getByLoadunitNo(String loadunitNo) {
+    public LoadUnit getByLoadunitNo(String loadunitNo) {
         return repositoryDao.getByLoadunitNo(loadunitNo);
     }
 
     @Override
-    public List<Repository> getByStatus(String status) {
+    public List<LoadUnit> getByStatus(String status) {
         return repositoryDao.getByStatus(status);
     }
 
     @Override
-    public List<Repository> getByProductNo(String productNo) {
+    public List<LoadUnit> getByProductNo(String productNo) {
         return repositoryDao.getByProductNo(productNo);
     }
 
     @Override
-    public List<Repository> getByOwnCriteria(String sqlQuery, String modificationDate, String createDate) {
+    public List<LoadUnit> getByOwnCriteria(String sqlQuery, String modificationDate, String createDate) {
         return repositoryDao.getByOwnCriteria(sqlQuery, modificationDate, createDate);
     }
 

@@ -262,9 +262,16 @@ ALTER TABLE orders ADD CONSTRAINT orders_shipping_address FOREIGN KEY (shipping_
 ALTER TABLE orders ADD CONSTRAINT orders_shipping_details FOREIGN KEY (shipping_details_id) REFERENCES shipping_details (ship_detail_id);
 ALTER TABLE users ADD CONSTRAINT users_customer FOREIGN KEY (customer_id) REFERENCES customers (customer_id) ON DELETE SET NULL ON UPDATE SET NULL;
 
+--changeset mirek_pawelec:rename_repository_table
+ALTER TABLE repository RENAME load_unit;
 
+--changeset mirek_pawelec:rename_repository_product_constraint
+ALTER TABLE load_unit DROP FOREIGN KEY repository_product,
+ADD CONSTRAINT load_unit_product FOREIGN KEY (product_id) REFERENCES product (product_id);
 
-
+--changeset mirek_pawelec:rename_repository_storageplace_constraint
+ALTER TABLE load_unit DROP FOREIGN KEY repository_storageplace,
+ADD CONSTRAINT load_unit_storageplace FOREIGN KEY (place_id) REFERENCES storageplace (place_id);
 
 
 

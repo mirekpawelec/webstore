@@ -14,7 +14,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({CartControllerTest.class, DeliveryControllerTest.class,
         HomeControllerTest.class, LoginControllerTest.class,
-        ProductControllerTest.class, RepositoryControllerTest.class,
+        ProductControllerTest.class, LoadUnitControllerTest.class,
         AppParameterControllerTest.class, CartRestControllerTest.class})
 public class GroupControllerTest {
 }

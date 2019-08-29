@@ -93,7 +93,7 @@ public class Product implements Serializable{
     private MultipartFile productUserManual;
     
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
-    private Set<Repository> repositorySet = new HashSet<Repository>();
+    private Set<LoadUnit> repositorySet = new HashSet<LoadUnit>();
     
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private Set<DeliveryItem> deliveryItemSet = new HashSet<DeliveryItem>();
@@ -267,11 +267,11 @@ public class Product implements Serializable{
     }
     
     @JsonIgnore
-    public Set<Repository> getRepositorySet() {
+    public Set<LoadUnit> getRepositorySet() {
         return repositorySet;
     }
 
-    public void setRepositorySet(Set<Repository> repositorySet) {
+    public void setRepositorySet(Set<LoadUnit> repositorySet) {
         this.repositorySet = repositorySet;
     }
     
@@ -370,7 +370,7 @@ public class Product implements Serializable{
             private Integer discount;
             private String status;
             private LocalDateTime createDate;
-            private Set<Repository> repositorySet;
+            private Set<LoadUnit> repositorySet;
             private Set<DeliveryItem> deliveryItemSet;
                     
             public Builder withProductId(Long productId){
@@ -421,7 +421,7 @@ public class Product implements Serializable{
                 this.createDate=createDate;
                 return this;
             }
-            public Builder withRepositorySet(Set<Repository> repositorySet){
+            public Builder withRepositorySet(Set<LoadUnit> repositorySet){
                 this.repositorySet=repositorySet;
                 return this;
             }

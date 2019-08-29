@@ -72,7 +72,7 @@ public class Storageplace implements Serializable{
     
     
     @OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
-    private Set<Repository> repositorySet = new HashSet<Repository>();
+    private Set<LoadUnit> repositorySet = new HashSet<LoadUnit>();
     
     @OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
     private Set<Delivery> deliverySet = new HashSet<Delivery>();;
@@ -185,11 +185,11 @@ public class Storageplace implements Serializable{
         this.createDate = createDate;
     }
 
-    public Set<Repository> getRepositorySet() {
+    public Set<LoadUnit> getRepositorySet() {
         return repositorySet;
     }
 
-    public void setRepositorySet(Set<Repository> repositorySet) {
+    public void setRepositorySet(Set<LoadUnit> repositorySet) {
         this.repositorySet = repositorySet;
     }
 

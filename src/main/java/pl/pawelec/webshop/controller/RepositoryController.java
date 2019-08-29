@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import pl.pawelec.webshop.model.Repository;
+import pl.pawelec.webshop.model.LoadUnit;
 import pl.pawelec.webshop.service.RepositoryService;
 import pl.pawelec.webshop.utils.AtributesModel;
 
@@ -75,7 +75,7 @@ public class RepositoryController {
             sqlQuery += " AND ";
         }
   
-        List<Repository> sqlResult = /*new ArrayList<>();*/ repositoryService.getByOwnCriteria(sqlQuery, lastModificationDate, createDate);
+        List<LoadUnit> sqlResult = /*new ArrayList<>();*/ repositoryService.getByOwnCriteria(sqlQuery, lastModificationDate, createDate);
         if(sqlResult.size()>0){
             model.addAttribute("wholeStock", sqlResult);
         } else {

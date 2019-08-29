@@ -9,13 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
-import pl.pawelec.webshop.model.Repository;
+import pl.pawelec.webshop.model.LoadUnit;
 import pl.pawelec.webshop.service.RepositoryService;
 
 /**
  * @author mirek
  */
-public class RepositoryConverter implements Converter<Object, Repository> {
+public class RepositoryConverter implements Converter<Object, LoadUnit> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryConverter.class);
 
@@ -23,9 +23,9 @@ public class RepositoryConverter implements Converter<Object, Repository> {
     private RepositoryService repositoryService;
 
     @Override
-    public Repository convert(Object element) {
+    public LoadUnit convert(Object element) {
         Long id = Long.valueOf((String) element);
-        Repository repository = repositoryService.getOneById(id);
+        LoadUnit repository = repositoryService.getOneById(id);
         LOGGER.info("### RepositoryConverter: element=" + id + " , repository=" + repository);
         return repository;
     }

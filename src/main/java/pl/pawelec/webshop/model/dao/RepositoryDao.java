@@ -6,15 +6,15 @@
 package pl.pawelec.webshop.model.dao;
 
 import java.util.List;
-import pl.pawelec.webshop.model.Repository;
+import pl.pawelec.webshop.model.LoadUnit;
 
 /**
  *
  * @author mirek
  */
-public interface RepositoryDao extends Dao<Repository>{
-    Repository getByLoadunitNo(String loadunitNo);
-    List<Repository> getByStatus(String status);
-    List<Repository> getByProductNo(String productNo);
-    List<Repository> getByOwnCriteria(String sqlQuery, String modificationDate, String createDate);
+public interface RepositoryDao extends Dao<LoadUnit>{
+    LoadUnit getByLoadunitNo(String loadunitNo);
+    List<LoadUnit> getByStatus(String status);
+    List<LoadUnit> getByProductNo(String productNo);
+    List<LoadUnit> getByOwnCriteria(String sqlQuery, String modificationDate, String createDate);
 }

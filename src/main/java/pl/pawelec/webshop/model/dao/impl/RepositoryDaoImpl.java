@@ -7,7 +7,7 @@ package pl.pawelec.webshop.model.dao.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.pawelec.webshop.model.Repository;
+import pl.pawelec.webshop.model.LoadUnit;
 import pl.pawelec.webshop.model.dao.AbstrDao;
 import pl.pawelec.webshop.model.dao.RepositoryDao;
 
@@ -23,23 +23,23 @@ import java.util.List;
  * @author mirek
  */
 @org.springframework.stereotype.Repository
-public class RepositoryDaoImpl extends AbstrDao<Repository> implements RepositoryDao {
+public class RepositoryDaoImpl extends AbstrDao<LoadUnit> implements RepositoryDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryDaoImpl.class);
 
-    public List<Repository> getByStatus(String status) {
+    public List<LoadUnit> getByStatus(String status) {
         return getEntityManager().createQuery("from Repository WHERE status = :status").setParameter("status", status).getResultList();
     }
 
-    public Repository getByLoadunitNo(String loadunitNo) {
-        return (Repository) getEntityManager().createQuery("from Repository WHERE loadunit_no = :loadunit_no").setParameter("loadunit_no", loadunitNo).getSingleResult();
+    public LoadUnit getByLoadunitNo(String loadunitNo) {
+        return (LoadUnit) getEntityManager().createQuery("from Repository WHERE loadunit_no = :loadunit_no").setParameter("loadunit_no", loadunitNo).getSingleResult();
     }
 
-    public List<Repository> getByProductNo(String productNo) {
+    public List<LoadUnit> getByProductNo(String productNo) {
         return getEntityManager().createQuery("from Repository WHERE product.productNo = :productNo").setParameter("productNo", productNo).getResultList();
     }
 
-    public List<Repository> getByOwnCriteria(String sqlQuery, String modificationDate, String createDate) {
-        List<Repository> result = new ArrayList<Repository>();
+    public List<LoadUnit> getByOwnCriteria(String sqlQuery, String modificationDate, String createDate) {
+        List<LoadUnit> result = new ArrayList<LoadUnit>();
         Query query;
         try {
             if (!modificationDate.isEmpty() && createDate.isEmpty()) {
