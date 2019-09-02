@@ -27,7 +27,7 @@ import pl.pawelec.webshop.model.status.ProductStatus;
 import pl.pawelec.webshop.service.CartService;
 import pl.pawelec.webshop.service.ClientMessageService;
 import pl.pawelec.webshop.service.ProductService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 import pl.pawelec.webshop.service.AppParameterService;
 
 /**
@@ -57,7 +57,7 @@ public class HomeController {
                                  Model model, 
                                  HttpServletRequest request){
         if(result.hasErrors() && !message.isNew()){
-            AtributesModel.addGlobalAtributeToModel(model, request);
+            ModelUtils.addGlobalAtribute(model, request);
             addLocalAtributesToModel(model, request, "homepage");
             model.addAttribute("validationError", "danger");
             return "homepage";
@@ -113,7 +113,7 @@ public class HomeController {
                                                 .collect(Collectors.toList());
         model.addAttribute("promotionProducts", promotionProducts);
         
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         addLocalAtributesToModel(model, request, "homepage");
         return "homepage";
     }
@@ -124,7 +124,7 @@ public class HomeController {
         product = productService.getOneByProductNo(productNo); 
         product.setStatus( ProductStatus.valueOf(product.getStatus()).getDescription() );
         model.addAttribute("product", product);
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         addLocalAtributesToModel(model, request, "product");
         return "product";
     }

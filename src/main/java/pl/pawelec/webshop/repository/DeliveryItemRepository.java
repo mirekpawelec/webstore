@@ -12,7 +12,7 @@ import pl.pawelec.webshop.model.DeliveryItem;
  *
  * @author mirek
  */
-public interface DeliveryItemDao extends BaseCrudRepository<DeliveryItem> {
+public interface DeliveryItemRepository extends BaseCrudRepository<DeliveryItem> {
     DeliveryItem getByLoadunitNo(String loadunitNo);
     List<DeliveryItem> getByDeliveryId(Long deliveryId);
     List<Object> getSummaryDelivery(Long id);

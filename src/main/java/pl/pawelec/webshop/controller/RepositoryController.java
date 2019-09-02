@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import pl.pawelec.webshop.model.LoadUnit;
 import pl.pawelec.webshop.service.RepositoryService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -33,7 +33,7 @@ public class RepositoryController {
     public String getAllStock(Model model, HttpServletRequest request){
         model.addAttribute("wholeStock", repositoryService.getAll());
         model.addAttribute("jspFile", "warehouse");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "warehouse";
     }
     
@@ -82,7 +82,7 @@ public class RepositoryController {
             model.addAttribute("cssNoDataFound", "info");
         }
         model.addAttribute("jspFile", "warehouse");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "warehouse";
     }
 }

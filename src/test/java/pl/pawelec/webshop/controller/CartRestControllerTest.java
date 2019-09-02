@@ -12,158 +12,192 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 import pl.pawelec.webshop.config.WebshopApplication;
-import pl.pawelec.webshop.service.converter.CartNotFoundException;
+import pl.pawelec.webshop.data.CartFactory;
+import pl.pawelec.webshop.data.CartItemFactory;
+import pl.pawelec.webshop.data.ProductFactory;
 import pl.pawelec.webshop.model.Cart;
+import pl.pawelec.webshop.model.CartItem;
 import pl.pawelec.webshop.model.Product;
 import pl.pawelec.webshop.model.status.CartStatus;
-import pl.pawelec.webshop.model.status.ProductStatus;
+import pl.pawelec.webshop.service.CartItemService;
 import pl.pawelec.webshop.service.CartService;
 import pl.pawelec.webshop.service.ProductService;
+import pl.pawelec.webshop.service.converter.CartNotFoundException;
 
-import java.math.BigDecimal;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/**
- * @author mirek
- */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {WebshopApplication.class})
-@SpringBootTest
+@SpringBootTest(classes = {WebshopApplication.class})
+@TestPropertySource(locations = "classpath:application.yml")
+@DataJpaTest
 public class CartRestControllerTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CartRestControllerTest.class);
+
+    Product product1, product2;
+    Cart cartWithMultiProducts;
+    private MockMvc mockMvc;
+
     @Autowired
-    private WebApplicationContext webApplicationContext;
+    private CartRestController cartRestController;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CartItemService cartItemService;
     @Autowired
     private ProductService productService;
     @Autowired
     MockHttpSession mockHttpSession;
-    private MockMvc mockMvc;
-
-    private static final String PRODUCT_NO = "000.000.01";
-    private static final String NAME = "Smartphone";
-    private static final String MANUFACTURER = "SomeManufacturer";
-    private static final String CATEGORY = "Smartphone";
-    private static final String DESCRIPTION = "Some description";
-    private static final BigDecimal UNIT_PRICE = new BigDecimal("999.99");
-    private static final int QUANTITY = 1;
 
     @Before
     public void setup() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
-        Product testProduct = new Product.Builder()
-                .withProductNo(PRODUCT_NO)
-                .withName(NAME)
-                .withManufacturer(MANUFACTURER)
-                .withCategory(CATEGORY)
-                .withDescription(DESCRIPTION)
-                .withUnitPrice(UNIT_PRICE)
-                .withQuantityInBox(QUANTITY)
-                .withStatus(ProductStatus.ED.name())
-                .build();
-        productService.create(testProduct);
+        this.mockMvc = MockMvcBuilders.standaloneSetup(cartRestController).build();
     }
 
     @After
     public void clean() {
-        try {
-            cartService.delete(cartService.getBySessionId(mockHttpSession.getId()).stream().filter(cart -> cart.getStatus().equals(CartStatus.RE.name())).findFirst().get());
-        } catch (CartNotFoundException cfe) {
-            LOGGER.info("No cart found: " + cfe.getSessionId());
-        }
-        productService.delete(productService.getOneByProductNo(PRODUCT_NO));
+        cartItemService.deleteAll();
+        cartService.deleteAll();
+        productService.deleteAll();
     }
 
     @Test
     public void create_method_a_new_cart_Json_object_should_be_added_and_returned() throws Exception {
-        //given
-        Cart patternCart = new Cart(mockHttpSession.getId());
-        //when & then
+        // given
+        // when
+        // then
         this.mockMvc.perform(post("/rest/cart/" + mockHttpSession.getId()))
-                .andExpect(status().is(200))
-                .andExpect(jsonPath("cartId").exists())
+                .andExpect(status().isCreated())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.cartId").isNotEmpty())
-                .andExpect(jsonPath("sessionId").exists())
                 .andExpect(jsonPath("$.sessionId").value(mockHttpSession.getId()))
-                .andExpect(jsonPath("status").exists())
                 .andExpect(jsonPath("$.status").value(CartStatus.RE.name()))
-                .andExpect(jsonPath("costOfAllItems").exists())
                 .andExpect(jsonPath("$.costOfAllItems").value(0))
-                .andExpect(jsonPath("cartItemSet").exists())
                 .andExpect(jsonPath("$.cartItemSet").isEmpty());
-        assertEquals(patternCart, cartService.getBySessionId(mockHttpSession.getId()).get(0));
+//        Cart cart = cartService.getActiveCartBySessionId(mockHttpSession.getId());
+//        assertNotNull(cart.getCartId());
+//        assertEquals(mockHttpSession.getId(), cart.getSessionId());
     }
 
     @Test
     public void read_method_a_cart_Json_object_should_be_returned() throws Exception {
-        //given
-        this.mockMvc.perform(post("/rest/cart/" + mockHttpSession.getId()))
-                .andExpect(status().is(200));
-        //when & then
-        this.mockMvc.perform(get("/rest/cart/" + mockHttpSession.getId()))
-                .andExpect(status().is(200))
-                .andExpect(jsonPath("cartId").exists())
+        // given
+        Cart cart = CartFactory.create();
+        cartService.create(cart);
+
+        // when
+        // then
+        this.mockMvc.perform(get("/rest/cart/" + cart.getSessionId()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.cartId").isNotEmpty())
-                .andExpect(jsonPath("sessionId").exists())
-                .andExpect(jsonPath("$.sessionId").value(mockHttpSession.getId()))
-                .andExpect(jsonPath("status").exists())
+                .andExpect(jsonPath("$.sessionId").value(cart.getSessionId()))
                 .andExpect(jsonPath("$.status").value(CartStatus.RE.name()))
-                .andExpect(jsonPath("costOfAllItems").exists())
                 .andExpect(jsonPath("$.costOfAllItems").value(0))
-                .andExpect(jsonPath("cartItemSet").exists())
                 .andExpect(jsonPath("$.cartItemSet").isEmpty());
     }
 
-    @Test(expected = CartNotFoundException.class)
+    @Test
     public void delete_method_a_given_cart_should_be_removed() throws Exception {
-        //given
-        this.mockMvc.perform(post("/rest/cart/" + mockHttpSession.getId()))
-                .andExpect(status().is(200));
-        Cart deleteCart = cartService.getBySessionId(mockHttpSession.getId()).get(0);
-        //when & then
-        this.mockMvc.perform(delete("/rest/cart/" + deleteCart.getCartId()))
-                .andExpect(status().is(204));
-        assertNull(cartService.getBySessionId(mockHttpSession.getId()).get(0));
+        // given
+        Cart deleteCart = CartFactory.create();
+        cartService.create(deleteCart);
 
+        // when
+        this.mockMvc.perform(delete("/rest/cart/" + deleteCart.getCartId()))
+                .andExpect(status().isNoContent());
+
+        // then
+        assertFalse(cartService.exists(deleteCart.getCartId()));
     }
 
     @Test
     public void add_cartItem_to_cart_should_be_added() throws Exception {
-        //given
-        Product addingProduct = productService.getOneByProductNo(PRODUCT_NO);
-        //when & then
-        this.mockMvc.perform(put("/rest/cart/add/" + addingProduct.getProductId()).session(mockHttpSession))
-                .andExpect(status().is(204));
-        Cart cart = cartService.getBySessionId(mockHttpSession.getId()).get(0);
+        // given
+        Product product = ProductFactory.create();
+        productService.create(product);
+
+        // when
+        this.mockMvc.perform(put("/rest/cart/add/" + product.getProductId())
+                .session(mockHttpSession))
+                .andExpect(status().isNoContent());
+        Cart cart = cartService.getActiveCartBySessionId(mockHttpSession.getId());
+
+        // then
         assertEquals(1, cart.getCartItemSet().size());
-        assertEquals(addingProduct, cart.getCartItemSet().iterator().next().getProduct());
+        assertEquals(product, cart.getCartItemSet().iterator().next().getProduct());
+    }
+
+    @Test
+    public void add_second_the_same_product_to_cart_should_be_increment_its_quantity() throws Exception {
+        // given
+        prepareCartWithMultiProducts();
+
+        // when
+        this.mockMvc.perform(put("/rest/cart/add/" + product1.getProductId())
+                .session(mockHttpSession))
+                .andExpect(status().isNoContent());
+        Cart cartUpdated = cartService.getActiveCartBySessionId(mockHttpSession.getId());
+        CartItem cartItemUpdated = cartUpdated.getCartItemSet().stream()
+                .filter(cartItem -> cartItem.getProduct().getProductId() == product1.getProductId())
+                .findFirst()
+                .orElse(new CartItem());
+
+        // then
+        assertEquals(2, cartUpdated.getCartItemSet().size());
+        assertEquals(2, cartItemUpdated.getQuantity());
+        assertEquals(product1, cartItemUpdated.getProduct());
     }
 
     @Test
     public void delete_cartItem_from_cart_should_be_removed() throws Exception {
-        //given
-        Product addingProduct = productService.getOneByProductNo(PRODUCT_NO);
-        this.mockMvc.perform(put("/rest/cart/add/" + addingProduct.getProductId()).session(mockHttpSession))
-                .andExpect(status().is(204));
-        //when & then
-        this.mockMvc.perform(put("/rest/cart/delete/" + addingProduct.getProductId()).session(mockHttpSession))
-                .andExpect(status().is(204));
-        Cart cart = cartService.getBySessionId(mockHttpSession.getId()).get(0);
-        assertEquals(0, cart.getCartItemSet().size());
+        // given
+        prepareCartWithMultiProducts();
+
+        // when
+        this.mockMvc.perform(put("/rest/cart/delete/" + product1.getProductId())
+                .session(mockHttpSession))
+                .andExpect(status().isNoContent());
+        Cart cartWithoutCartItem = cartService.getActiveCartBySessionId(mockHttpSession.getId());
+
+        // then
+        assertEquals(1, cartWithoutCartItem.getCartItemSet().size());
+        assertEquals(product2.getUnitPrice(), cartWithMultiProducts.getCostOfAllItems());
     }
 
+    @Test
+    public void checkout_size_of_cart_should_return_2() throws Exception {
+        // given
+        prepareCartWithMultiProducts();
+
+        // when
+        // then
+        this.mockMvc.perform(get("/rest/cart/items/" + mockHttpSession.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").value(2));
+    }
+
+    private void prepareCartWithMultiProducts() {
+        product1 = ProductFactory.create();
+        product1.setProductNo("111.111.11");
+        product2 = ProductFactory.create();
+        product2.setProductNo("222.222.22");
+        productService.create(product1);
+        productService.create(product2);
+        CartItem cartItem1 = CartItemFactory.create(product1);
+        CartItem cartItem2 = CartItemFactory.create(product2);
+        cartWithMultiProducts = CartFactory.create(mockHttpSession.getId(), cartItem1, cartItem2);
+        cartService.create(cartWithMultiProducts);
+        cartItemService.create(cartItem1);
+        cartItemService.create(cartItem2);
+    }
 }

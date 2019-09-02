@@ -8,14 +8,14 @@ CREATE TABLE IF NOT EXISTS product (
     manufacturer varchar(50) not null,
     category varchar(25) not null,
     description text not null,
-    unitPrice decimal(9,2) not null,
-    quantityInBox int(4) not null,
+    unit_price decimal(9,2) not null,
+    quantity int(4) not null,
     is_promotion varchar(1) default 'N',
     discount int(3) default 0,
     status varchar(2) default 'OK',
-    createDate timestamp default current_timestamp,
+    c_date timestamp default current_timestamp,
     PRIMARY KEY (product_id),
-    unique key product_no (product_no)
+    UNIQUE KEY product_no (product_no)
 );
 
 CREATE TABLE IF NOT EXISTS repository (
@@ -30,9 +30,7 @@ CREATE TABLE IF NOT EXISTS repository (
     lm_date timestamp default current_timestamp,
     c_date timestamp default current_timestamp,
     PRIMARY KEY(loadunit_id),
-    UNIQUE KEY loadunit_no (loadunit_no),
-    KEY repository_product (product_id),
-    KEY repository_storageplace (place_id)
+    UNIQUE KEY loadunit_no (loadunit_no)
 );
 
 CREATE TABLE IF NOT EXISTS storagearea (
@@ -57,8 +55,7 @@ CREATE TABLE IF NOT EXISTS storageplace (
     status varchar(2) default 'OK',
     c_date timestamp default current_timestamp,
     PRIMARY KEY (place_id),
-    UNIQUE KEY (place_no),
-    KEY storageplace_storagearea (area_id)
+    UNIQUE KEY (place_no)
 );
 
 CREATE TABLE IF NOT EXISTS delivery (
@@ -75,8 +72,7 @@ CREATE TABLE IF NOT EXISTS delivery (
     status varchar(2) default 'RE',
     c_date varchar(20),
     f_date varchar(20),
-    PRIMARY KEY (delivery_id),
-    KEY delivery_storageplace (place_id)
+    PRIMARY KEY (delivery_id)
 );
 
 CREATE TABLE IF NOT EXISTS delivery_item (
@@ -88,9 +84,7 @@ CREATE TABLE IF NOT EXISTS delivery_item (
     status varchar(2) default 'OK',
     c_date timestamp default current_timestamp,
     PRIMARY KEY (item_id),
-    UNIQUE KEY (loadunit_no),
-    KEY deliveryItem_delivery (delivery_id),
-    KEY deliveryItem_product (product_id)
+    UNIQUE KEY (loadunit_no)
 );
 
 CREATE TABLE IF NOT EXISTS cart (
@@ -100,8 +94,7 @@ CREATE TABLE IF NOT EXISTS cart (
     status varchar(2) default 'OK',
     lm_date datetime default current_timestamp,
     c_date datetime default current_timestamp,
-    PRIMARY KEY(cart_id),
-    KEY cart_users (user_id)
+    PRIMARY KEY(cart_id)
 );
 
 CREATE TABLE IF NOT EXISTS cart_items (
@@ -113,9 +106,7 @@ CREATE TABLE IF NOT EXISTS cart_items (
     status varchar(2) default 'OK',
     lm_date datetime default current_timestamp,
     c_date datetime default current_timestamp,
-    PRIMARY KEY (id),
-    KEY cart_items_cart (cart_id),
-    KEY cart_items_product (product_id)
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS address (
@@ -150,8 +141,7 @@ CREATE TABLE IF NOT EXISTS shipping_address (
     shipping_date date,
     address_id int,
     c_date datetime default current_timestamp,
-    PRIMARY KEY (ship_address_id),
-    KEY shipping_address_address (address_id)
+    PRIMARY KEY (ship_address_id)
 );
 
 CREATE TABLE IF NOT EXISTS shipping_details (
@@ -173,11 +163,7 @@ CREATE TABLE IF NOT EXISTS orders (
     status varchar(2) default 'OK',
     lm_date datetime default current_timestamp,
     c_date datetime default current_timestamp,
-    PRIMARY KEY (order_id),
-    UNIQUE KEY orders_cart (cart_id),
-    KEY orders_customers (customer_id),
-    KEY orders_shipping_address (shipping_address_id),
-    KEY orders_shipping_details (shipping_details_id)
+    PRIMARY KEY (order_id)
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -194,8 +180,7 @@ CREATE TABLE IF NOT EXISTS users (
     lm_date datetime default current_timestamp,
     c_date datetime default current_timestamp,
     PRIMARY KEY (user_id),
-    UNIQUE KEY (login),
-    KEY users_customer (customer_id)
+    UNIQUE KEY (login)
 );
 
 CREATE TABLE IF NOT EXISTS messages (
@@ -262,16 +247,19 @@ ALTER TABLE orders ADD CONSTRAINT orders_shipping_address FOREIGN KEY (shipping_
 ALTER TABLE orders ADD CONSTRAINT orders_shipping_details FOREIGN KEY (shipping_details_id) REFERENCES shipping_details (ship_detail_id);
 ALTER TABLE users ADD CONSTRAINT users_customer FOREIGN KEY (customer_id) REFERENCES customers (customer_id) ON DELETE SET NULL ON UPDATE SET NULL;
 
---changeset mirek_pawelec:rename_repository_table
+--changeset mirek_pawelec:rename_repository_table dbms:mysql
 ALTER TABLE repository RENAME load_unit;
 
+--changeset mirek_pawelec:rename_repository_table dbms:h2
+ALTER TABLE repository RENAME TO load_unit;
+
 --changeset mirek_pawelec:rename_repository_product_constraint
-ALTER TABLE load_unit DROP FOREIGN KEY repository_product,
-ADD CONSTRAINT load_unit_product FOREIGN KEY (product_id) REFERENCES product (product_id);
+ALTER TABLE load_unit DROP FOREIGN KEY repository_product;
+ALTER TABLE load_unit ADD CONSTRAINT load_unit_product FOREIGN KEY (product_id) REFERENCES product (product_id);
 
 --changeset mirek_pawelec:rename_repository_storageplace_constraint
-ALTER TABLE load_unit DROP FOREIGN KEY repository_storageplace,
-ADD CONSTRAINT load_unit_storageplace FOREIGN KEY (place_id) REFERENCES storageplace (place_id);
+ALTER TABLE load_unit DROP FOREIGN KEY repository_storageplace;
+ALTER TABLE load_unit ADD CONSTRAINT load_unit_storageplace FOREIGN KEY (place_id) REFERENCES storageplace (place_id);
 
 
 

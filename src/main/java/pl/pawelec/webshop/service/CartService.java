@@ -14,9 +14,13 @@ import java.util.List;
  */
 public interface CartService extends CrudService<Cart> {
 
-    Cart createAndGetCart(Cart cart);
+    Cart create(String sessionId);
 
-    List<Cart> getBySessionId(String sessionId);
+    Cart getActiveCartBySessionId(String sessionId);
 
-    boolean existsBySessionId(String sessionId, String status);
+    void addItemToCart(String sessionId, String user, long productId);
+
+    void deleteItemFromCart(String sessionId, long productId);
+
+    int getSizeOfCart(String sessionId);
 }

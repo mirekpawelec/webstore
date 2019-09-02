@@ -10,8 +10,6 @@ spring:
       suffix: .jsp
   resources:
     static-locations: classpath:/resources/
-  liquibase:
-    change-log: classpath:db/db-changelog-master.xml
   datasource:
     url: jdbc:mysql://localhost:3306/webstore
     username: root
@@ -24,6 +22,8 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         show-sql: true
         format_sql: true
+  liquibase:
+    change-log: classpath:db/db-changelog-master.xml
 
 logging:
   level:

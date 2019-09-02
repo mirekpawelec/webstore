@@ -11,9 +11,5 @@ import java.util.List;
 
 public interface CartRepository extends BaseCrudRepository<Cart> {
 
-    Cart createAndGetCart(Cart cart);
-
     List<Cart> getBySessionId(String sessionId);
-
-    boolean existsBySessionId(String sessionId, String status);
 }

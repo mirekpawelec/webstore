@@ -8,7 +8,7 @@ package pl.pawelec.webshop.repository.impl;
 import org.springframework.stereotype.Repository;
 import pl.pawelec.webshop.model.DeliveryItem;
 import pl.pawelec.webshop.repository.AbstrRepository;
-import pl.pawelec.webshop.repository.DeliveryItemDao;
+import pl.pawelec.webshop.repository.DeliveryItemRepository;
 import pl.pawelec.webshop.service.exception.NoLoadunitNoException;
 
 import javax.persistence.NoResultException;
@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Repository
-public class DeliveryItemDaoImpl extends AbstrRepository<DeliveryItem> implements DeliveryItemDao, Serializable {
+public class DeliveryItemRepositoryImpl extends AbstrRepository<DeliveryItem> implements DeliveryItemRepository, Serializable {
 
     @Override
     public DeliveryItem getByLoadunitNo(String loadunitNo) {

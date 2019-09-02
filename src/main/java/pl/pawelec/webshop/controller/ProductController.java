@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.pawelec.webshop.model.Product;
 import pl.pawelec.webshop.model.status.ProductStatus;
 import pl.pawelec.webshop.service.ProductService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 import pl.pawelec.webshop.service.validator.ProductValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +51,7 @@ public class ProductController {
         products.stream().forEach(p -> p.setStatus(ProductStatus.valueOf(p.getStatus()).getDescription()));
         model.addAttribute("products", products);
         model.addAttribute("jspFile", "products");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "products";
     }
 
@@ -68,7 +68,7 @@ public class ProductController {
         product.setStatus(ProductStatus.valueOf(product.getStatus()).getDescription());
         model.addAttribute("product", product);
         model.addAttribute("jspFile", "product");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "product";
     }
 
@@ -80,7 +80,7 @@ public class ProductController {
         model.addAttribute("productId", updateProduct.getProductId());
         model.addAttribute("productNumber", updateProduct.getProductNo());
         model.addAttribute("jspFile", "updateProductForm");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "updateProductForm";
     }
 
@@ -114,7 +114,7 @@ public class ProductController {
         Product product = new Product();
         model.addAttribute("newProductForm", product);
         model.addAttribute("jspFile", "newProductForm");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "addProductForm";
     }
 

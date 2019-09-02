@@ -17,7 +17,7 @@ import pl.pawelec.webshop.model.Rule;
 import pl.pawelec.webshop.model.status.FaqStatus;
 import pl.pawelec.webshop.model.status.RuleStatus;
 import pl.pawelec.webshop.service.RuleService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 import pl.pawelec.webshop.service.validator.RuleValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +50,7 @@ public class RuleController {
     @RequestMapping("/admin/rules")
     public String getAllQuestionsFaq(Model model, HttpServletRequest request) {
         model.addAttribute("rules", ruleService.getAll());
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         model.addAttribute("jspFile", "allRules");
         return "allRules";
     }
@@ -58,7 +58,7 @@ public class RuleController {
     @RequestMapping(value = "/admin/rule/add", method = RequestMethod.GET)
     public String addRuleForm(Model model, HttpServletRequest request) {
         model.addAttribute("modelRule", new Rule());
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         addLocalAttributesToModel(model);
         return "addUpdateRule";
     }
@@ -66,7 +66,7 @@ public class RuleController {
     @RequestMapping(value = "/admin/rule/{id}/update", method = RequestMethod.GET)
     public String updateRuleForm(@PathVariable("id") String ruleId, Model model, HttpServletRequest request) {
         model.addAttribute("modelRule", ruleService.getOneById(Long.valueOf(ruleId)));
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         addLocalAttributesToModel(model);
         return "addUpdateRule";
     }
@@ -75,7 +75,7 @@ public class RuleController {
     public String processSaveRuleForm(@ModelAttribute("modelRule") @Valid Rule modelRuleToBeAdd, BindingResult result, Model model,
                                       HttpServletRequest request, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            AtributesModel.addGlobalAtributeToModel(model, request);
+            ModelUtils.addGlobalAtribute(model, request);
             addLocalAttributesToModel(model);
             return "addUpdateRule";
         }

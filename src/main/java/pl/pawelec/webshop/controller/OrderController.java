@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.pawelec.webshop.model.Order;
 import pl.pawelec.webshop.service.OrderService;
 import pl.pawelec.webshop.service.UserInfoService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -35,7 +35,7 @@ public class OrderController {
     public String getAllOrders(Model model, HttpServletRequest request){
         model.addAttribute("orders", orderService.getAll());
         model.addAttribute("jspFile","orders");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "orders";
     }
     
@@ -45,7 +45,7 @@ public class OrderController {
         order.getCart().updateCostOfAllItems();
         model.addAttribute("order", order);
         model.addAttribute("jspFile","order");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "order";
     }
     
@@ -57,7 +57,7 @@ public class OrderController {
         model.addAttribute("user", userInfoService.getByLogin(userLogin));
         model.addAttribute("userOrdersList", true);
         model.addAttribute("jspFile","order");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "order";
     }
     
@@ -68,7 +68,7 @@ public class OrderController {
         model.addAttribute("order", order);
         model.addAttribute("userOrder", true);
         model.addAttribute("jspFile","order");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "order";
     }
     

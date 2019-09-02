@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.pawelec.webshop.controller.attributes.AlertAttribute;
 import pl.pawelec.webshop.controller.attributes.CrudAttribute;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 import pl.pawelec.webshop.model.AppParameter;
 import pl.pawelec.webshop.service.AppParameterService;
 import pl.pawelec.webshop.service.validator.AppParameterValidator;
@@ -44,7 +44,7 @@ public class AppParameterController {
 
         model.addAttribute("allParameters", appParameterService.getAll());
         model.addAttribute("jspFile", "appParameters");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
 
         return "appParameters";
     }
@@ -54,7 +54,7 @@ public class AppParameterController {
 
         model.addAttribute("newParameterForm", new AppParameter());
         model.addAttribute("jspFile", "addAppParameter");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
 
         return "addAppParameter";
     }
@@ -64,7 +64,7 @@ public class AppParameterController {
                                          BindingResult result, Model model, HttpServletRequest request,
                                          final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            AtributesModel.addGlobalAtributeToModel(model, request);
+            ModelUtils.addGlobalAtribute(model, request);
             return "addAppParameter";
         }
 
@@ -88,7 +88,7 @@ public class AppParameterController {
         model.addAttribute("updateParameterForm", appParameter);
         model.addAttribute("updateInfo", appParameter.getSymbol() + " - " + appParameter.getName());
         model.addAttribute("jspFile", "updateAppParameter");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
 
         return "updateAppParameter";
     }
@@ -98,7 +98,7 @@ public class AppParameterController {
                                             BindingResult result, Model model, HttpServletRequest request,
                                             final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            AtributesModel.addGlobalAtributeToModel(model, request);
+            ModelUtils.addGlobalAtribute(model, request);
             model.addAttribute("jspFile", "updateAppParameter");
             return "updateAppParameter";
         }

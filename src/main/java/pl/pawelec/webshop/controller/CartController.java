@@ -11,31 +11,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 import pl.pawelec.webshop.service.CartService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
 
-/**
- *
- * @author mirek
- */
+
 @Controller
 @RequestMapping("/cart")
 public class CartController {
+
     @Autowired
     private CartService cartService;
-    
-    
+
     @RequestMapping
-    public String getSessionId(HttpServletRequest request){
+    public String getSessionId(HttpServletRequest request) {
         return "redirect:/cart/" + request.getSession(true).getId();
-    } 
-    
+    }
+
     @RequestMapping("/{cartId}")
-    public String getCartBySessionId(@PathVariable String cartId, Model model, HttpServletRequest request){
+    public String getCartBySessionId(@PathVariable String cartId, Model model, HttpServletRequest request) {
         model.addAttribute("sessionId", cartId);
         model.addAttribute("jspFile", "cart");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "cart";
-    } 
-  
+    }
 }

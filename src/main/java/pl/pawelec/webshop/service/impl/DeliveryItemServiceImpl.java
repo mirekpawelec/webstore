@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.pawelec.webshop.model.DeliveryItem;
 import pl.pawelec.webshop.model.LoadUnit;
-import pl.pawelec.webshop.repository.DeliveryItemDao;
+import pl.pawelec.webshop.repository.DeliveryItemRepository;
 import pl.pawelec.webshop.model.status.ProductState;
 import pl.pawelec.webshop.model.status.ProductStatus;
 import pl.pawelec.webshop.model.status.QualityStatus;
@@ -31,7 +31,7 @@ public class DeliveryItemServiceImpl implements DeliveryItemService, Serializabl
     private static final Logger LOGGER = LoggerFactory.getLogger(DeliveryItemServiceImpl.class);
 
     @Autowired
-    private DeliveryItemDao deliveryItemDao;
+    private DeliveryItemRepository deliveryItemDao;
 
     @Autowired
     private RepositoryService repositoryService;

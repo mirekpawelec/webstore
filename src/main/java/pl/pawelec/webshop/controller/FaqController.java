@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.pawelec.webshop.model.Faq;
 import pl.pawelec.webshop.model.status.FaqStatus;
 import pl.pawelec.webshop.service.FaqService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 import pl.pawelec.webshop.service.validator.FaqValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,7 +50,7 @@ public class FaqController {
     @RequestMapping("/admin/faq")
     public String getAllQuestionsFaq(Model model, HttpServletRequest request) {
         model.addAttribute("questions", faqService.getAll());
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         model.addAttribute("jspFile", "questionsFaq");
         return "questionsFaq";
     }
@@ -59,7 +59,7 @@ public class FaqController {
     public String addQuestionForm(Model model, HttpServletRequest request) {
         model.addAttribute("modelFaq", new Faq());
         model.addAttribute("jspFile", "addUpdateQuestionFaq");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         addLocalAttributesToModel(model);
         return "addUpdateQuestionFaq";
     }
@@ -68,7 +68,7 @@ public class FaqController {
     public String updateQuestionForm(@PathVariable("id") String faqId, Model model, HttpServletRequest request) {
         model.addAttribute("modelFaq", faqService.getOneById(Long.valueOf(faqId)));
         model.addAttribute("jspFile", "addUpdateQuestionFaq");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         addLocalAttributesToModel(model);
         return "addUpdateQuestionFaq";
     }
@@ -77,7 +77,7 @@ public class FaqController {
     public String processSaveQuestionForm(@ModelAttribute("modelFaq") @Valid Faq modelFaqToBeAdd, BindingResult result, Model model,
                                           HttpServletRequest request, final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            AtributesModel.addGlobalAtributeToModel(model, request);
+            ModelUtils.addGlobalAtribute(model, request);
             addLocalAttributesToModel(model);
             model.addAttribute("jspFile", "addUpdateQuestionFaq");
             return "addUpdateQuestionFaq";

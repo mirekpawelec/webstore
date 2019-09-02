@@ -15,9 +15,9 @@ import pl.pawelec.webshop.repository.CartItemRepository;
 import java.util.List;
 
 @Repository
-public class CartItemDaoImpl extends AbstrRepository<CartItem> implements CartItemRepository {
+public class CartItemRepositoryImpl extends AbstrRepository<CartItem> implements CartItemRepository {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CartItemDaoImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CartItemRepositoryImpl.class);
 
     @Override
     public void delete(CartItem entity) {

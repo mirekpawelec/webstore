@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.pawelec.webshop.model.Delivery;
 import pl.pawelec.webshop.model.status.DeliveryStatus;
 import pl.pawelec.webshop.service.DeliveryService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -34,7 +34,7 @@ public class DeliveryController {
         deliveries.stream().forEach( delivery -> delivery.setStatus(DeliveryStatus.valueOf(delivery.getStatus()).getDescription()) );
         model.addAttribute("deliveries", deliveries);
         model.addAttribute("jspFile", "deliveries");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "deliveries";
     }
     

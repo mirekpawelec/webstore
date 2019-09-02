@@ -17,9 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * @author mirek
- */
 @Component
 public class PerformanceMonitorInterceptor implements HandlerInterceptor {
 

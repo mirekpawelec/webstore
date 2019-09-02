@@ -6,7 +6,7 @@ app.controller('cartController', ['$scope', '$log', '$http' ,function ($scope, $
         $scope.sessionId = sessionId;
         $log.info('Odświeżam koszyk... '+$scope.sessionId);
         $http({ method: 'GET',
-                url: '/webshop/rest/cart/'+$scope.sessionId
+                url: '/rest/cart/'+$scope.sessionId
         }).then( 
         function(response){
             $log.info('Odświeżanie koszyka nr '+$scope.sessionId+' powiodło się. Status= ' + response.status + '.');
@@ -23,7 +23,7 @@ app.controller('cartController', ['$scope', '$log', '$http' ,function ($scope, $
             return;
         }
         $http({ method:'DELETE',
-                url:'/webshop/rest/cart/'+cartId
+                url:'/rest/cart/'+cartId
         }).then(
         function(response){
             $log.info('Usunięto koszyk nr '+cartId+'. Status= '+response.status+'.');
@@ -39,7 +39,7 @@ app.controller('cartController', ['$scope', '$log', '$http' ,function ($scope, $
         $log.info("Dodaje produkt o ID="+productId);
 
         $http({ method: 'PUT', 
-                url:'/webshop/rest/cart/add/'+productId
+                url:'/rest/cart/add/'+productId
         }).then(
         function(response){
             $log.info('Dodano product nr '+productId+'. Status= '+response.status+'.');
@@ -55,7 +55,7 @@ app.controller('cartController', ['$scope', '$log', '$http' ,function ($scope, $
         $log.info("Usuwam z koszyka produkt o ID="+productId);
 
         $http({ method:'PUT',
-                url:'/webshop/rest/cart/delete/'+productId
+                url:'/rest/cart/delete/'+productId
         }).then(
         function(response){
             $log.info('Usunięto product nr '+productId+'. Status= '+response.status+'.');
@@ -78,7 +78,7 @@ app.controller('cartController', ['$scope', '$log', '$http' ,function ($scope, $
     $scope.getNumberOfItemsFromCart = function(sessionId){
         $log.info('Sprawdzam ilość przedmiotów w koszyku nr ' + sessionId);
         $http({ method:'GET',
-                url:'/webshop/rest/cart/items/'+sessionId
+                url:'/rest/cart/items/'+sessionId
         }).then(
         function(response){
             if(isNaN(response.data) || response.data == 0){

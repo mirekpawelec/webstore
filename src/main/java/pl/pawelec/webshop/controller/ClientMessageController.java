@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.pawelec.webshop.model.ClientMessage;
 import pl.pawelec.webshop.model.status.MessageStatus;
 import pl.pawelec.webshop.service.ClientMessageService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,7 +35,7 @@ public class ClientMessageController {
     public String getAllMessages(Model model, HttpServletRequest request){
         model.addAttribute("messages", clientMessageService.getAll());
         model.addAttribute("jspFile", "clientMessage");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "clientMessages";
     }
     

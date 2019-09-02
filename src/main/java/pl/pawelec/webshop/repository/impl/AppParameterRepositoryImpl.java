@@ -18,7 +18,8 @@ public class AppParameterRepositoryImpl extends AbstrRepository<AppParameter> im
 
     public AppParameter getByUniqueKey(String symbol, String name) {
         try {
-            return (AppParameter) getEntityManager().createQuery("from AppParameter WHERE symbol = :symbol AND name = :name")
+            return (AppParameter) getEntityManager()
+                    .createQuery("from AppParameter WHERE symbol = :symbol AND name = :name")
                     .setParameter("symbol", symbol)
                     .setParameter("name", name)
                     .getSingleResult();

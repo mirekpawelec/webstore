@@ -21,7 +21,7 @@ import pl.pawelec.webshop.model.UserInfo;
 import pl.pawelec.webshop.model.role.UserRole;
 import pl.pawelec.webshop.model.status.UserStatus;
 import pl.pawelec.webshop.service.UserInfoService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 import pl.pawelec.webshop.service.validator.UserInfoValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +46,7 @@ public class UserInfoController {
     public String getAllUser(Model model, HttpServletRequest request) {
         model.addAttribute("users", userInfoService.getAll());
         model.addAttribute("jspFile", "users");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         return "users";
     }
 
@@ -57,7 +57,7 @@ public class UserInfoController {
         updateUser.setRepeatPassword("");
         model.addAttribute("modelUser", updateUser);
         model.addAttribute("jspFile", "updateUser");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         addLocalAtributesToModel(model);
         return "addUpdateUser";
     }
@@ -68,7 +68,7 @@ public class UserInfoController {
             , final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             model.addAttribute("jspFile", "updateUser");
-            AtributesModel.addGlobalAtributeToModel(model, request);
+            ModelUtils.addGlobalAtribute(model, request);
             addLocalAtributesToModel(model);
             return "addUpdateUser";
         }

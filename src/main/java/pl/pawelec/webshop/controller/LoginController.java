@@ -22,7 +22,7 @@ import pl.pawelec.webshop.model.UserInfo;
 import pl.pawelec.webshop.model.role.UserRole;
 import pl.pawelec.webshop.model.status.UserStatus;
 import pl.pawelec.webshop.service.UserInfoService;
-import pl.pawelec.webshop.controller.utils.AtributesModel;
+import pl.pawelec.webshop.controller.utils.ModelUtils;
 import pl.pawelec.webshop.service.validator.UserInfoValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +58,7 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, HttpServletRequest request) {
         model.addAttribute("jspFile", "login");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         addLocalAtributesToModel(model);
         return "login";
     }
@@ -67,7 +67,7 @@ public class LoginController {
     public String createUser(Model model, HttpServletRequest request) {
         model.addAttribute("modelUser", new UserInfo());
         model.addAttribute("jspFile", "addUser");
-        AtributesModel.addGlobalAtributeToModel(model, request);
+        ModelUtils.addGlobalAtribute(model, request);
         addLocalAtributesToModel(model);
         return "addUpdateUser";
     }
@@ -77,7 +77,7 @@ public class LoginController {
                                     BindingResult result, Model model, HttpServletRequest request,
                                     final RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            AtributesModel.addGlobalAtributeToModel(model, request);
+            ModelUtils.addGlobalAtribute(model, request);
             addLocalAtributesToModel(model);
             model.addAttribute("jspFile", "addUser");
             return "addUpdateUser";

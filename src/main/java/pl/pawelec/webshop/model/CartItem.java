@@ -6,8 +6,8 @@
 package pl.pawelec.webshop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import pl.pawelec.webshop.service.converter.TimestampToLocalDateTimeConverter;
 import pl.pawelec.webshop.model.status.CartStatus;
+import pl.pawelec.webshop.service.converter.TimestampToLocalDateTimeConverter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,32 +15,28 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-/**
- *
- * @author mirek
- */
 @Entity
 @Table(name = "cart_items")
-public class CartItem implements Serializable{
+public class CartItem implements Serializable {
 
     private static final long serialVersionUID = -1347553385512546482L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private Long id; 
-    
+    private Long id;
+
     @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Cart cart;
-    
+
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
-    
+
     @Column(nullable = false)
     private int quantity;
-    
+
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
 
@@ -50,12 +46,10 @@ public class CartItem implements Serializable{
     @Convert(converter = TimestampToLocalDateTimeConverter.class)
     @Column(name = "lm_date")
     private LocalDateTime lastModificationDate;
-    
+
     @Convert(converter = TimestampToLocalDateTimeConverter.class)
     @Column(name = "c_date")
     private LocalDateTime createDate;
-
-
 
     public CartItem() {
         cart = new Cart();
@@ -72,8 +66,6 @@ public class CartItem implements Serializable{
         this.createDate = LocalDateTime.now();
     }
 
-    
-    
     public Long getId() {
         return id;
     }
@@ -117,7 +109,7 @@ public class CartItem implements Serializable{
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
     @JsonIgnore
     public LocalDateTime getLastModificationDate() {
         return lastModificationDate;
@@ -126,7 +118,7 @@ public class CartItem implements Serializable{
     public void setLastModificationDate(LocalDateTime lastModificationDate) {
         this.lastModificationDate = lastModificationDate;
     }
-    
+
     @JsonIgnore
     public LocalDateTime getCreateDate() {
         return createDate;
@@ -136,45 +128,34 @@ public class CartItem implements Serializable{
         this.createDate = createDate;
     }
 
-
-
-    public void updateTotalPrice(){
-        this.totalPrice = product.getUnitPrice().multiply( BigDecimal.valueOf(quantity) );
+    public void updateTotalPrice() {
+        this.totalPrice = product.getUnitPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
-    
-    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CartItem cartItem = (CartItem) o;
+        return quantity == cartItem.quantity &&
+                Objects.equals(id, cartItem.id) &&
+                Objects.equals(cart, cartItem.cart) &&
+                Objects.equals(product, cartItem.product) &&
+                Objects.equals(totalPrice, cartItem.totalPrice) &&
+                Objects.equals(status, cartItem.status) &&
+                Objects.equals(lastModificationDate, cartItem.lastModificationDate) &&
+                Objects.equals(createDate, cartItem.createDate);
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + Objects.hashCode(this.id);
-        return hash;
+        return Objects.hash(id, cart, product, quantity, totalPrice, status, lastModificationDate, createDate);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final CartItem other = (CartItem) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
-    }
-    
-    
-    
-    @Override
     public String toString() {
-        return "CartItem{" + "id=" + id + ", cartId=" + cart.getCartId() + ", product=" + product + ", quantity=" + quantity + ", totalPrice=" + totalPrice 
-             + ", status=" + status + ", lastModificationDate=" + lastModificationDate + ", createDate=" + createDate + '}';
+        return "CartItem{" + "id=" + id + ", cartId=" + cart.getCartId() + ", product=" + product + ", quantity=" + quantity + ", totalPrice=" + totalPrice
+                + ", status=" + status + ", lastModificationDate=" + lastModificationDate + ", createDate=" + createDate + '}';
     }
-    
+
 }

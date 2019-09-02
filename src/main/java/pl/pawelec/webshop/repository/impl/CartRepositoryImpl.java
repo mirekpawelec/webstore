@@ -8,6 +8,7 @@ package pl.pawelec.webshop.repository.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 import pl.pawelec.webshop.model.Cart;
 import pl.pawelec.webshop.model.status.CartStatus;
 import pl.pawelec.webshop.repository.AbstrRepository;
@@ -21,19 +22,6 @@ import java.util.List;
 public class CartRepositoryImpl extends AbstrRepository<Cart> implements CartRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CartRepositoryImpl.class);
-
-    @Override
-    public Cart createAndGetCart(Cart cart) {
-        Cart newCart = null;
-        String cartSessionId = cart.getSessionId();
-        if (existsBySessionId(cartSessionId, CartStatus.RE.name())) {
-            newCart = getBySessionId(cartSessionId).stream().filter(c -> c.getStatus().equals(CartStatus.RE.name())).findFirst().get();
-        } else {
-            getEntityManager().persist(cart);
-            newCart = cart;
-        }
-        return newCart;
-    }
 
     @Override
     public void delete(Cart entity) {
@@ -50,23 +38,10 @@ public class CartRepositoryImpl extends AbstrRepository<Cart> implements CartRep
 
     @Override
     public List<Cart> getBySessionId(String sessionId) {
-        List<Cart> listCart = getEntityManager().createQuery("from Cart WHERE session_id = :sessionId")
-                .setParameter("sessionId", sessionId).getResultList();
-        if (listCart.isEmpty()) {
-            throw new CartNotFoundException("", sessionId);
-        }
+        List<Cart> listCart = getEntityManager()
+                .createQuery("from Cart WHERE session_id = :sessionId")
+                .setParameter("sessionId", sessionId)
+                .getResultList();
         return listCart;
     }
-
-    @Override
-    public boolean existsBySessionId(String sessionId, String status) {
-        try {
-            getEntityManager().createQuery("from Cart WHERE session_id = :sessionId and status = :status")
-                    .setParameter("sessionId", sessionId).setParameter("status", status).getSingleResult();
-        } catch (NoResultException nr) {
-            return false;
-        }
-        return true;
-    }
-
 }
