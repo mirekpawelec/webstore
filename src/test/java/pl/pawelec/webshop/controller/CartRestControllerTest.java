@@ -18,7 +18,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import pl.pawelec.webshop.config.WebshopApplication;
+import pl.pawelec.webshop.config.WebstoreApplication;
 import pl.pawelec.webshop.data.CartFactory;
 import pl.pawelec.webshop.data.CartItemFactory;
 import pl.pawelec.webshop.data.ProductFactory;
@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {WebshopApplication.class})
+@SpringBootTest(classes = {WebstoreApplication.class})
 @TestPropertySource(locations = "classpath:application.yml")
 @DataJpaTest
 public class CartRestControllerTest {

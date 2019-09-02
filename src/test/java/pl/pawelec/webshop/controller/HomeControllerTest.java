@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import pl.pawelec.webshop.config.WebshopApplication;
+import pl.pawelec.webshop.config.WebstoreApplication;
 import pl.pawelec.webshop.model.Product;
 import pl.pawelec.webshop.model.status.ProductStatus;
 import pl.pawelec.webshop.service.ProductService;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author mirek
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {WebshopApplication.class})
+@ContextConfiguration(classes = {WebstoreApplication.class})
 @SpringBootTest
 public class HomeControllerTest {
     @Autowired

@@ -11,8 +11,8 @@ import org.springframework.context.annotation.ImportResource;
 @ComponentScan("pl.pawelec.webshop")
 @EntityScan("pl.pawelec.webshop.model")
 @ImportResource("file:src/main/webapp/WEB-INF/spring/web-context.xml")
-public class WebshopApplication extends SpringBootServletInitializer {
+public class WebstoreApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
-        SpringApplication.run(WebshopApplication.class, args);
+        SpringApplication.run(WebstoreApplication.class, args);
     }
 }

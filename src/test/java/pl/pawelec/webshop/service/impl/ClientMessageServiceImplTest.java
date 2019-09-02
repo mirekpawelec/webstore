@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.pawelec.webshop.config.WebshopApplication;
+import pl.pawelec.webshop.config.WebstoreApplication;
 import pl.pawelec.webshop.model.ClientMessage;
 import pl.pawelec.webshop.service.ClientMessageService;
 
@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  * @author mirek
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {WebshopApplication.class})
+@ContextConfiguration(classes = {WebstoreApplication.class})
 @SpringBootTest
 public class ClientMessageServiceImplTest {
     @Autowired

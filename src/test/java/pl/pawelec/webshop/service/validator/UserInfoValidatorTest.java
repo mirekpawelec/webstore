@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ValidationUtils;
-import pl.pawelec.webshop.config.WebshopApplication;
+import pl.pawelec.webshop.config.WebstoreApplication;
 import pl.pawelec.webshop.model.UserInfo;
 import pl.pawelec.webshop.service.UserInfoService;
 
@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
  * @author mirek
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {WebshopApplication.class})
+@ContextConfiguration(classes = {WebstoreApplication.class})
 @SpringBootTest
 public class UserInfoValidatorTest {
     @Autowired

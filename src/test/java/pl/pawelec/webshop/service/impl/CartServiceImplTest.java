@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.pawelec.webshop.config.WebshopApplication;
+import pl.pawelec.webshop.config.WebstoreApplication;
 import pl.pawelec.webshop.data.CartFactory;
 import pl.pawelec.webshop.data.CartItemFactory;
 import pl.pawelec.webshop.data.ProductFactory;
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {WebshopApplication.class})
+@SpringBootTest(classes = {WebstoreApplication.class})
 public class CartServiceImplTest {
 
     @Autowired
