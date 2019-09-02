@@ -13,9 +13,14 @@ public class CartFactory {
         return new Cart(SESSION_ID);
     }
 
-    public static Cart create(String sessionId, CartItem ...cartItems) {
-        Cart cart = create();
-        cart.setSessionId(sessionId);
+    public static Cart create(Long cartId, String sessionId) {
+        Cart cart = new Cart(sessionId);
+        cart.setCartId(cartId);
+        return cart;
+    }
+
+    public static Cart create(String sessionId, CartItem... cartItems) {
+        Cart cart = new Cart(sessionId);
         Stream.of(cartItems).forEach(cartItem -> {
             cart.getCartItemSet().add(cartItem);
             cartItem.setCart(cart);

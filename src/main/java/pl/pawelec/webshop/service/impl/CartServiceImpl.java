@@ -49,7 +49,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     @Override
     public Cart create(String sessionId) {
-        Cart cart = getActiveCartBySessionId(sessionId);
+        Cart cart = this.getActiveCartBySessionId(sessionId);
         if (cart.isNew()) {
             cartRepository.create(cart);
         }
@@ -115,12 +115,12 @@ public class CartServiceImpl implements CartService {
     @Transactional
     @Override
     public void addItemToCart(String sessionId, String user, long productId) {
-        Cart cart = getActiveCartBySessionId(sessionId);
+        Cart cart = this.getActiveCartBySessionId(sessionId);
         if (cart.isNew()) {
             if (Objects.nonNull(user)) {
                 cart.setUser(userInfoService.getByLogin(user));
             }
-            create(cart);
+            cartRepository.create(cart);
         }
 
         Product addingProduct;
@@ -161,6 +161,8 @@ public class CartServiceImpl implements CartService {
             if (cartItemToBeDeleted.getProduct().getProductId() == productId) {
                 carItem.remove();
                 break;
+            } else {
+                cartItemToBeDeleted = null;
             }
         }
 
@@ -174,6 +176,8 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public int getSizeOfCart(String sessionId) {
-        return getActiveCartBySessionId(sessionId).getCartItemSet().size();
+        return getActiveCartBySessionId(sessionId)
+                .getCartItemSet()
+                .size();
     }
 }

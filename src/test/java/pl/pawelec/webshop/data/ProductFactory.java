@@ -27,4 +27,10 @@ public class ProductFactory {
                 .withStatus(ProductStatus.ED.name())
                 .build();
     }
+
+    public static Product create(Long productId) {
+        Product product = create();
+        product.setProductId(productId);
+        return product;
+    }
 }
