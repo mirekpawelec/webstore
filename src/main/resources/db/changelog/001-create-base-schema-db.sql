@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS repository (
     quantity int not null,
     place_id int not null,
     state varchar(25) default 'NEW',
-    qualityStatus int not null default 0,
+    quality_status int not null default 0,
     status varchar(2) default 'OK',
     lm_date timestamp default current_timestamp,
     c_date timestamp default current_timestamp,
