@@ -14,7 +14,7 @@
         <java.version>11</java.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <spring.webflow.version>2.4.2.RELEASE</spring.webflow.version>
+        <spring.webflow.version>2.4.6.RELEASE</spring.webflow.version>
         <mysql.version>5.1.23</mysql.version>
     </properties>
 
